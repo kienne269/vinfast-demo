@@ -9,12 +9,25 @@
     "web": "expo start --web",
     "eject": "expo eject"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
   "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
+    "@hauvo/react-native-360-image-viewer": "^1.0.0",
+    "@react-navigation/bottom-tabs": "^6.3.1",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/stack": "^6.2.1",
+    "axios": "^0.24.0",
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-gesture-handler": "~2.1.0",
+    "react-native-swiper": "^1.6.0",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
