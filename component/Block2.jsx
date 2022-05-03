@@ -1,50 +1,82 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import Swiper from 'react-native-swiper'
-
-const styles = {
-    wrapper: {},
-    slide1: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#9DD6EB'
-    },
-    slide2: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#97CAE5'
-    },
-    slide3: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#92BBD9'
-    },
-    text: {
-      color: '#fff',
-      fontSize: 30,
-      fontWeight: 'bold'
-    }
-  }
+import block2Api from '../api/home/block2Api'
 
 const Block2 = () => {
+  const [block2Data, setBlock2Data] = useState([])
+    useEffect(() => {
+        
+        const getBlock1 = async () => {
+            try {
+                const res = await block2Api.getAll()
+                setBlock2Data(res.data)
+            } catch(err) {
+                alert(err)
+            }
+        }
+        getBlock1()
+    }, [])
+
   return (
-    <Swiper style={styles.wrapper} showsButtons loop={false}>
-        <View testID="Hello" style={styles.slide1}>
-        <Text style={styles.text}>Hello Swiper</Text>
-        </View>
-        <View testID="Beautiful" style={styles.slide2}>
-        <Text style={styles.text}>Beautiful</Text>
-        </View>
-        <View testID="Simple" style={styles.slide3}>
-        <Text style={styles.text}>And simple</Text>
-        </View>
-    </Swiper>
+    <View style={styles.block2}>
+      <Text style={styles.block2Title}>Hành trình {"\n"} chinh phục thế giới</Text>
+      <Swiper style={styles.wrapper} showsButtons loop={false}>
+        {
+            block2Data ? block2Data.map((item, index) => (
+                <View key={index}>
+                  <Block2Item item={item} />
+                </View>
+            )) : null
+        }
+      </Swiper>
+    </View>
   )
 }
 
+const Block2Item = props => (
+  <View style={styles.block2Item}>
+    <Text style={styles.block2ItemQuote}>"{props.item.quote}"</Text>
+    <Text style={styles.block2ItemAuthor}>{props.item.author}</Text>
+  </View>
+)
+
 export default Block2
 
-const style = StyleSheet.create({})
+const styles = StyleSheet.create({
+  block2: {
+    borderColor: '#ccc',
+    borderBottomWidth: 1,
+    borderStyle: 'solid',
+    height: 400,  
+  },
+  block2Title: {
+    fontSize: 30,
+    fontWeight: '300',
+    marginBottom: 50,
+    color: '#1f2125',
+    // height: 65,
+    letterSpacing: 0,
+    textAlign: 'center',
+    lineHeight: 40,
+  },
+  block2Item: {
+    paddingTop: 30,
+    paddingBottom: 30,
+  },
+  block2ItemQuote: {
+    paddingLeft: 60,
+    paddingRight: 60,
+    marginBottom: 20,
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '300',
+    color: '#5B5B5B',
+    textAlign: 'center',
+  },
+  block2ItemAuthor: {
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+  }
+})

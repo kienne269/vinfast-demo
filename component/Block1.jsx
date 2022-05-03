@@ -33,9 +33,9 @@ const Block1 = () => {
 
 const Block1Item = props => (
   <View style={styles.block1Item}>
-    <View style={styles.block1ItemImage}>
+    <View style={{height: 60}}>
       <Image 
-        style={{width: '100%', height: null, aspectRatio: 394/570}}
+        style={{width: '100%', height: null, aspectRatio: 1200/518}}
         source={{uri: props.item.image}}
       />
     </View>
@@ -47,12 +47,13 @@ const Block1Item = props => (
 )
 
 const styles = {
-    wrapper: {},
+    wrapper: {
+      height: 560,
+    },
     slide: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#9DD6EB'
+      justifyContent: 'flex-start',
+      backgroundColor: 'transparent'
     },
     text: {
       color: '#fff',
@@ -60,16 +61,30 @@ const styles = {
       fontWeight: 'bold'
     },
     block1Item: {
-
+      height: 500,
     },
-    block1ItemImage: {
-
+    block1ItemInfo: {
+      width: '90%',
+      // marginTop: -30,
+      top: 60,
+      left: '5%',
+      backgroundColor: '#FAFAFA',
+      borderRadius: 3,
+      paddingTop: 30,
+      paddingLeft: 30,
+      paddingBottom: 70,
+      paddingRight: 30,
+      zIndex: 9,
     },
     block1ItemTitle: {
-
+      fontSize: 24,
+      marginBottom: 32,
+      textTransform: 'uppercase',
     },
     block1ItemDescription: {
-
+      fontSize: 18,
+      lineHeight: 26,
+      color: '#5B5B5B',
     },
 }
 

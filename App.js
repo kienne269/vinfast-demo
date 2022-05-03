@@ -43,11 +43,46 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Car" component={Car} />
-        <Tab.Screen name="Bike" component={Bike} />
-        <Tab.Screen name="Blog" component={Blog} />
-        <Tab.Screen name="Account" component={Account} />
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{
+            title: "Home",
+            headerTitleAlign: "center",
+          }}
+        />
+        <Tab.Screen
+          name="Car"
+          component={Car}
+          options={{
+            title: "Car",
+            headerTitleAlign: "center",
+          }}
+        />
+        <Tab.Screen
+          name="Bike"
+          component={Bike}
+          options={{
+            title: "Bike",
+            headerTitleAlign: "center",
+          }}
+        />
+        <Tab.Screen
+          name="Blog"
+          component={Blog}
+          options={{
+            title: "Blog",
+            headerTitleAlign: "center",
+          }}
+        />
+        <Tab.Screen
+          name="Account"
+          component={Account}
+          options={{
+            title: "Account",
+            headerTitleAlign: "center",
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
