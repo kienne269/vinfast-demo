@@ -9,7 +9,7 @@ import Block5 from '../component/Block5'
 
 const Home = ({navigation}) => {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
       <ScrollView>
         <HomeSlide/>
         <Block1 />

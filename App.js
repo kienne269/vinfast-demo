@@ -39,8 +39,8 @@ export default function App() {
             // You can return any component that you like here!
             return <FontAwesome5 name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
+          // tabBarActiveTintColor: 'tomato',
+          // tabBarInactiveTintColor: 'gray',
         })}
       >
         <Tab.Screen
