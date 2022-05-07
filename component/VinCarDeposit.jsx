@@ -121,7 +121,7 @@ const VinCarDeposit = () => {
       );
 
     const renderColorCar = ({ item, index }) => (
-        <ItemColorCar id={id} color={item.color} colorCode={item.colorCode} index={index}/>
+        <ItemColorCar id={index} color={item.color} colorCode={item.colorCode} index={index}/>
     );
 
     return (
