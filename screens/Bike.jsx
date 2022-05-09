@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
+import VinBikeBanner from '../component/VinBikeBanner'
+import SalePower from '../component/SalePower'
+import PolicyPower from '../component/PolicyPower'
+import FourEasy from '../component/FourEasy'
 
 const Bike = () => {
   return (
-    <View>
-      <Text>Bike</Text>
-    </View>
+    <ScrollView style={{backgroundColor: '#fff',}}>
+      <VinBikeBanner/>
+      <SalePower/>
+      <PolicyPower/>
+      <FourEasy/>
+    </ScrollView>
   )
 }
 

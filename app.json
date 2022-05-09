@@ -4,9 +4,9 @@
     "slug": "vinfast",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Vinfast-logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Vinfast-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -21,7 +21,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/Vinfast-logo.png",
         "backgroundColor": "#FFFFFF"
       }
     },
