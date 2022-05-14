@@ -15,6 +15,7 @@
     ]
   },
   "dependencies": {
+    "@expo-google-fonts/inter": "^0.2.2",
     "@expo/vector-icons": "^13.0.0",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
@@ -23,9 +24,11 @@
     "axios": "^0.24.0",
     "cookie": "^0.5.0",
     "expo": "~44.0.0",
+    "expo-font": "~10.0.4",
     "expo-linear-gradient": "~11.0.3",
     "expo-status-bar": "~1.2.0",
     "image360viewer": "^1.4.7",
+    "intl": "^1.2.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-form": "^7.30.0",

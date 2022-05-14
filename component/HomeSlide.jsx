@@ -29,7 +29,7 @@ const HomeSlide = () => {
             <View key={index} style={styles.slide}>
               <Image 
                 style={{width: '100%', height: null, aspectRatio: 3840/1662}}
-                source={{uri: item.banner}}
+                source={{uri: item.path}}
               />
             </View>
           )) : null

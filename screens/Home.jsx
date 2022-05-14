@@ -5,18 +5,16 @@ import Block1 from '../component/Block1'
 import Block2 from '../component/Block2'
 import Block3 from '../component/Block3'
 import Block4 from '../component/Block4'
-import Block5 from '../component/Block5'
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff'}}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' }}>
       <ScrollView>
-        <HomeSlide/>
+        <HomeSlide />
         <Block1 />
         <Block2 />
-        <Block3 navigation={navigation}/>
+        <Block3 />
         <Block4 />
-        <Block5 />
       </ScrollView>
     </View>
   )

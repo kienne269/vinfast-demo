@@ -1,42 +1,27 @@
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import "intl";
 import "intl/locale-data/jsonp/en";
 import Button from '../component/Button'
 import Swiper from 'react-native-swiper';
-import block4Api from '../api/home/block4Api'
 import {COLORS} from '../constants/theme'
-import BlockVehicle from './BlockVehicle';
 
-const Block4 = () => {
-  const [block4Data, setBlock4Data] = useState([])
-
-    useEffect(() => {
-        const getBlock4 = async () => {
-            try {
-                const res = await block4Api.getAll()
-                setBlock4Data(res.data)
-            } catch(err) {
-                console.log(err)
-            }
-        }
-        getBlock4()  
-    }, [])
+const BlockVehicle = ({dataApi}) => {
 
   return (
-    <View style={styles.block4}>
-      <View style={styles.container}>
-        <Text style={styles.block4Title}>Xe máy điện</Text>
-        <Text style={styles.block4Description}>Sản phẩm của người Việt, dành cho người Việt với các chính sách ưu đãi tốt nhất thị trường.</Text>
-        <BlockVehicle dataApi={block4Data}/>
-      </View>
+    <View>
+        {
+            dataApi ? dataApi.map((item,index) => (
+              <BlockVehicleItem item={item} key={index}/>
+            )) : null
+        }
     </View>
   )
 }
 
-export default Block4
+export default BlockVehicle
 
-const Block4Item = ({item}) => (
+const BlockVehicleItem = ({item}) => (
   <View>
     <Image 
       style={{width: '100%', height: 235,}}
@@ -60,35 +45,15 @@ const Block4Item = ({item}) => (
 )
 
 const styles = StyleSheet.create({
-  block4: {
+  blockVehicle: {
     
-  },
-  block4Title: {
-    fontWeight: '300',
-    paddingTop: 50,
-    paddingBottom: 50,
-    fontSize: 30,
-    fontWeight: '300',
-    color: COLORS.black,
-    letterSpacing: 0,
-    textAlign: 'center',
-    lineHeight: 44,
-    backgroundColor: COLORS.white,
-  },
-  block4Description: {
-    color: '#707070',
-    fontWeight: '300',
-    fontSize: 16,
-    lineHeight: 24,
-    textAlign: 'center',
-    marginBottom: 40,
   },
   container: {
     paddingHorizontal: 20,
     marginHorizontal: 'auto',
     width: '100%',
   },
-  block4Title: {
+  blockVehicleTitle: {
     fontWeight: '300',
     paddingTop: 50,
     paddingBottom: 50,
@@ -100,7 +65,7 @@ const styles = StyleSheet.create({
     lineHeight: 44,
     backgroundColor: COLORS.white,
   },
-  block4Description: {
+  blockVehicleDescription: {
     color: '#707070',
     fontWeight: '300',
     fontSize: 16,
@@ -111,5 +76,62 @@ const styles = StyleSheet.create({
   wrapper: {
     width: '100%',
     height: 716,
+  },
+  slogan: {
+    marginTop: 36,
+    marginBottom: 8,
+    fontStyle: 'normal',
+    fontWeight: '300',
+    fontSize: 20,
+    lineHeight: 28,
+    color: '#3c3c3c',
+  },
+  name: {
+    marginBottom: 24,
+    fontSize: 48,
+    lineHeight: 60,
+    fontWeight: '200',
+    fontStyle: 'normal',
+    color: '#3C3C3C',
+  },
+  type: {
+
+  },
+  price: {
+
+  },
+  title: {
+    fontSize: 12,
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 16,
+    color: '#3C3C3C',
+    marginBottom: 8,
+  },
+  noname: {
+    fontSize: 20,
+    fontStyle: 'normal',
+    fontWeight: '400',
+    lineHeight: 28,
+    color: '#3C3C3C',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+  },
+  deposit: {
+    fontWeight: '400',
+    width: '100%',
+    fontSize: 14,
+    borderRadius: 0,
+  },
+  viewAll: {
+    backgroundColor: '#fff',
+    color: '#1464f4',
+    width: '100%',
+    textAlign:'center',
+    fontSize: 14,
+    fontWeight: '700',
+    lineHeight: 15,
+    textTransform: 'uppercase',
+    paddingVertical: 14,
   },
 });

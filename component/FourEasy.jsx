@@ -100,10 +100,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   container: {
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    paddingHorizontal: 20,
+    marginHorizontal: 'auto',
     width: '100%',
   },
   item: {

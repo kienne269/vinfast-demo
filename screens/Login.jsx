@@ -8,12 +8,14 @@ import { login } from '../redux/user/userSlice';
 import { useDispatch, useSelector} from  'react-redux'
 import { selectUser } from '../redux/user/userSlice';
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const dispatch = useDispatch(); 
   const user = useSelector(selectUser)
   const [checked, setChecked] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const isLogin = true
   const handleSubmit = () => {
     const obj = {
       email: email,
@@ -24,7 +26,9 @@ const Login = () => {
       password: password,
       loggedIn: true,
     }))
-    alert(JSON.stringify(typeof(user.loggedIn)))
+    if(isLogin) {
+      navigation.navigate('Auth')
+    }
   }
   return (
     <KeyboardAvoidingView

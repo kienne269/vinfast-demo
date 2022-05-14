@@ -154,10 +154,8 @@ const styles = StyleSheet.create({
         // backgroundColor: '#f5faff',
     },
     container: {
-        paddingLeft: 10,
-        paddingRight: 10,
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        paddingHorizontal: 20,
+        marginHorizontal: 'auto',
         width: '100%',
     },
     salesPowerNew: {
