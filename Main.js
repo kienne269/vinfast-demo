@@ -16,107 +16,100 @@ import Account from './screens/Account';
 
 import SignIn from './screens/SignIn'
 import Login from './screens/Login'
-import { useSelector } from 'react-redux';
-import { selectUser } from './redux/user/userSlice';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const Auth = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="Login"
+    <Tab.Navigator
+      initialRouteName="Auth"
+      screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+              iconName = focused
+              ? 'house-user'
+              : 'house-user';
+          } else if (route.name === 'Car') {
+              iconName = focused ? 'car' : 'car';
+          } else if (route.name === 'Bike') {
+              iconName = focused ? 'motorcycle' : 'motorcycle';
+          } else if (route.name === 'Blog') {
+              iconName = focused ? 'blog' : 'blog';
+          } else if (route.name === 'Account') {
+              iconName = focused ? 'user-alt' : 'user-alt';
+          }
+
+          // You can return any component that you like here!
+          return <FontAwesome5 name={iconName} size={size} color={color} />;
+          },
+          // tabBarActiveTintColor: 'tomato',
+          // tabBarInactiveTintColor: 'gray',
+      })}
     >
-      <Stack.Screen
-        name='Login'
-        component={Login}
+    <Tab.Screen
+        name="Home"
+        component={Home}
         options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name='SignIn'
-        component={SignIn}
-        options={{
-          title: 'Đăng ký', //Set Header Title
-          headerStyle: {
-            backgroundColor: '#307ecc', //Set Header color
-          },
-          headerTintColor: '#fff', //Set Header text color
-          headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
-          },
-          headerTitleAlign: "center",
-        }}
-      />
-    </Stack.Navigator>
+    />
+    <Tab.Screen
+        name="Car"
+        component={Car}
+        options={{headerShown: false}}
+    />
+    <Tab.Screen
+        name="Bike"
+        component={Bike}
+        options={{headerShown: false}}
+    />
+    <Tab.Screen
+        name="Blog"
+        component={Blog}
+        options={{headerShown: false}}
+    />
+    <Tab.Screen
+        name="Account"
+        component={Account}
+        options={{headerShown: false}}
+    />
+  </Tab.Navigator>
   )
 }
 
 const Main = () => {
-    const user = useSelector(selectUser)
-    const isLogin = user.loggedIn === true
-    const stack = isLogin ? Tab : Stack
     return (
         <NavigationContainer>
-            <stack.Navigator
-            initialRouteName="Auth"
-            screenOptions={({ route }) => ({
-                tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-
-                if (route.name === 'Home') {
-                    iconName = focused
-                    ? 'house-user'
-                    : 'house-user';
-                } else if (route.name === 'Car') {
-                    iconName = focused ? 'car' : 'car';
-                } else if (route.name === 'Bike') {
-                    iconName = focused ? 'motorcycle' : 'motorcycle';
-                } else if (route.name === 'Blog') {
-                    iconName = focused ? 'blog' : 'blog';
-                } else if (route.name === 'Account') {
-                    iconName = focused ? 'user-alt' : 'user-alt';
-                }
-
-                // You can return any component that you like here!
-                return <FontAwesome5 name={iconName} size={size} color={color} />;
+          <Stack.Navigator
+            initialRouteName="Login"
+          >
+            <Stack.Screen
+              name='Login'
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name='SignIn'
+              component={SignIn}
+              options={{
+                title: 'Đăng ký', //Set Header Title
+                headerStyle: {
+                  backgroundColor: '#307ecc', //Set Header color
                 },
-                // tabBarActiveTintColor: 'tomato',
-                // tabBarInactiveTintColor: 'gray',
-            })}
-            >
-            <stack.Screen
-                name="Home"
-                component={Home}
-                options={{headerShown: false}}
+                headerTintColor: '#fff', //Set Header text color
+                headerTitleStyle: {
+                  fontWeight: 'bold', //Set Header text style
+                },
+                headerTitleAlign: "center",
+              }}
             />
-            <stack.Screen
-                name="Car"
-                component={Car}
-                options={{headerShown: false}}
+            <Stack.Screen 
+              name='Auth'
+              component={Auth}
+              options={{headerShown: false}}
             />
-            <stack.Screen
-                name="Bike"
-                component={Bike}
-                options={{headerShown: false}}
-            />
-            <stack.Screen
-                name="Blog"
-                component={Blog}
-                options={{headerShown: false}}
-            />
-            <stack.Screen
-                name="Account"
-                component={Account}
-                options={{headerShown: false}}
-            />
-            {
-                isLogin ? null : <Stack.Screen
-                name="Auth"
-                component={Auth}
-                options={{headerShown: false}}
-            />
-            }
-            </stack.Navigator>
+          </Stack.Navigator>
         </NavigationContainer>
     )
 }
