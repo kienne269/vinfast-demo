@@ -1,18 +1,47 @@
 import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
 import React, {useState, useEffect} from 'react'
+import "intl";
+import "intl/locale-data/jsonp/en";
+import Swiper from 'react-native-swiper';
 import OrderLast from './OrderLast';
-import { Image360viewer } from 'image360viewer';
 import productDepositApi from '../api/depost/depositApi'
 import {COLORS, FONTS} from '../constants'
+import luxsa from '../assets/data/Image360View';
 
 const { width, height } = Dimensions.get('window')
 
 const VinCarDeposit = () => {
+    const dataContainer = [
+        {
+            id: 1,
+            containerDeposit: 'http://192.168.234.1//images/ldp-all-cars/President.jpg',
+            containerDepositActive: 'http://192.168.234.1//images/ldp-all-cars/President-highlight.jpg',
+        },
+        {
+            id: 2,
+            containerDeposit: 'http://192.168.234.1//images/ldp-all-cars/LuxSA.jpg',
+            containerDepositActive: 'http://192.168.234.1//images/ldp-all-cars/LuxSA-highlight.jpg',
+        },
+        {
+            id: 3,
+            containerDeposit: 'http://192.168.234.1//images/ldp-all-cars/LuxA.jpg',
+            containerDepositActive: 'http://192.168.234.1//images/ldp-all-cars/LuxA-highlight.jpg',
+        },
+        {
+            id: 4,
+            containerDeposit: 'http://192.168.234.1//images/ldp-all-cars/Fadil.jpg',
+            containerDepositActive: 'http://192.168.234.1//images/ldp-all-cars/Fadil-highlight.jpg',
+        },
+        {
+            id: 5,
+            containerDeposit: 'http://192.168.234.1//images/ldp-all-cars/VFe34.jpg',
+            containerDepositActive: 'http://192.168.234.1//images/ldp-all-cars/VFe34-highlight.jpg',
+        },
+    ]
     const carFisrt = [17, 0, 6, 12, 25]
 
-    const [background, setBackground] = useState('http://192.168.234.1/images/lux-sa/red.png')
+    const [background, setBackground] = useState('http://192.168.234.1/images/lux-sa/brahminy-white/1.png')
     
-    const [container, setContainer] = useState([])
     const [postData, setPostData] = useState([])
     const [allCar, setAllCar] = useState([])
     
@@ -22,24 +51,12 @@ const VinCarDeposit = () => {
     const [type, setType] = useState('lux-sa')
 
     useEffect(() => {
-        const getCarContainer = async () => {
-            try {
-                const res = await productDepositApi.getAllCarContainer()
-                setContainer(res.data)
-            } catch(err) {
-                console.log(err)
-            }
-        }
-        getCarContainer() 
-    }, [])
-
-    useEffect(() => {
         const getCarDeposit = async () => {
             try {
                 const res = await productDepositApi.getOneCar(type)
                 setPostData(res.data)
             } catch(err) {
-                console.log(err)
+                alert(err)
             }
         }
         getCarDeposit()          
@@ -52,7 +69,7 @@ const VinCarDeposit = () => {
                 const res2 = await productDepositApi.getAllCarDeposit()
                 setAllCar(res2.data)
             } catch(err) {
-                console.log(err)
+                alert(err)
             }
         }
         getAllCarDeposit()
@@ -63,11 +80,11 @@ const VinCarDeposit = () => {
     const [active3, setActive3] = useState(0);
 
     let car = []
-    if (allCar) {
-        car = allCar.filter((item, index) => {
-            return item.name === nameTitle[active]
-        })
-    }
+    // if (allCar) {
+    //     car = allCar.filter((item, index) => {
+    //         return item.name === nameTitle[active]
+    //     })
+    // }
 
     // const li = () => {
     //     return (
@@ -82,9 +99,9 @@ const VinCarDeposit = () => {
     //     )
     // }
 
-    const Item = ({ container, index, containerActive }) => (
+    const Item = ({ containerDeposit, index, containerDepositActive }) => (
         <TouchableHighlight
-            onPress={() => (setActive(index), setType(name[index]), setBackground('http://192.168.234.1/images/lux-sa/red.png'))}
+            onPress={() => (setActive(index), setType(name[index]), setBackground(`http://192.168.234.1/images/lux-sa/brahminy-white/1.png`))}
             style={{
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -96,11 +113,11 @@ const VinCarDeposit = () => {
             <View style={styles.item}>
                 <Image 
                     style={[{width: 138.48, height: 92.31}, index === active ? {display: 'none'} : {display: 'flex'}]}
-                    source={{uri: container}}
+                    source={{uri: containerDeposit}}
                 />
                 <Image 
                     style={[{width: 138.48, height: 92.31}, index === active ? {display: 'flex'} : {display: 'none'}]}
-                    source={{uri: containerActive}}
+                    source={{uri: containerDepositActive}}
                 />
                 <Text style={styles.h2}>{name[index]}</Text>
             </View>
@@ -108,7 +125,7 @@ const VinCarDeposit = () => {
     );
 
     const renderItem = ({ item, index }) => (
-        <Item container={item.container} containerActive={item.containerActive} index= {index}/>
+        <Item containerDeposit={item.containerDeposit} containerDepositActive={item.containerDepositActive} index= {index}/>
     );
 
     const ItemColorCar = ({id, colorCode, color, index }) => (
@@ -128,7 +145,7 @@ const VinCarDeposit = () => {
         <>
             <View style={styles.vinCarDeposit}>
                 <FlatList
-                    data={container}
+                    data={dataContainer}
                     renderItem={renderItem}
                     horizontal
                     showsHorizontalScrollIndicator={false}
@@ -141,24 +158,26 @@ const VinCarDeposit = () => {
                         style={{width: 366, height: 238}}
                         source={{uri: background}}
                     />
-                    {/* {
-                        allCar ? allCar.map((item, index) => (
-                            <View key={index} style={active2 === parseInt(item.id) ? {display: 'flex'} : {display: 'none'}}>
-                                <Image360viewer
-                                    images={images360}
-                                    width={300}
-                                    cursorIcon={<Image source={directionsImg} style={styles.icon} />}
+                    <Swiper
+                        height={240}
+                        loop
+                    >
+                        {
+                            luxsa ? luxsa.map((item, index) => {
+                                <Image key={index}
+                                    style={{width: 366, height: 238}}
+                                    source={{uri: item}}
                                 />
-                            </View>
-                        )) : null
-                    } */}
+                            }) : null
+                        }
+                    </Swiper>
                 </View>
                 <View style={styles.vinCarDetailSelect}>
                     <View style={styles.groupNameTitle}>
                         <Text style={styles.title}>{nameTitle[active]}</Text>
                         <View style={styles.amount}>
                             <Text style={{fontSize: 18, marginTop: 5, marginBottom: 10,}}>Số tiền đặt cọc</Text>
-                            <Text style={{fontSize: 28, fontWeight: '700', lineHeight: 34, color: COLORS.blue}}>{postData[active] ? postData[active].deposits : '50.000.000'} vnđ</Text>
+                            <Text style={{fontSize: 28, fontWeight: '700', lineHeight: 34, color: COLORS.blue}}>{new Intl.NumberFormat('en').format(postData[active] ? postData[active].deposits : 50000000)} vnđ</Text>
                         </View>
                     </View>
                     <View>

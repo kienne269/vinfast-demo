@@ -4,6 +4,7 @@ import Swiper from 'react-native-swiper'
 import block1Api from '../api/home/block1Api'
 import Button from '../component/Button'
 import { COLORS } from '../constants'
+import luxsa from '../assets/data/Image360View';
 
 const Block1 = () => {
 

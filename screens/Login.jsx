@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Pressable, Image, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { Link } from '@react-navigation/native';
 import TextInput from '../component/TextInput';
@@ -7,6 +7,7 @@ import {COLORS} from '../constants/index'
 import { login } from '../redux/user/userSlice';
 import { useDispatch, useSelector} from  'react-redux'
 import { selectUser } from '../redux/user/userSlice';
+import accountApi from '../api/account';
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch(); 
@@ -14,8 +15,8 @@ const Login = ({ navigation }) => {
   const [checked, setChecked] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLogin, setIsLogin] = useState(false)
 
-  const isLogin = true
   const handleSubmit = () => {
     const obj = {
       email: email,
@@ -26,9 +27,22 @@ const Login = ({ navigation }) => {
       password: password,
       loggedIn: true,
     }))
-    if(isLogin) {
-      navigation.navigate('Auth')
+
+    const getAccountApi = async () => {
+      try {
+          const res = await accountApi.login(email, password)
+          setIsLogin(typeof(res.data) === 'object')
+
+          if(typeof(res.data) === 'object') {
+            navigation.navigate('Auth')
+          } else {
+            alert("lỗi")
+          }
+      } catch(err) {
+          alert(err)
+      }
     }
+    getAccountApi()
   }
   return (
     <KeyboardAvoidingView

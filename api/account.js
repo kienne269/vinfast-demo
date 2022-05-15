@@ -12,6 +12,8 @@ const accountApi = {
     createByAdmin: (params) => axiosClient.post('admin/createAccount.php', params),
     updateByAdmin: (params) => axiosClient.post(`admin/updateAccount.php`, params),
     deleteByAdmin: (id) => axiosClient.delete(`admin/deleteAccount.php?id=${id}`),
+
+    login: (email, password) => axios.get(`http://192.168.234.1/vinfast-backend/api/user/login.php?email=${email}&password=${password}`)
 }
 
 export default accountApi
