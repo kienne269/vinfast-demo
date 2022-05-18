@@ -43,7 +43,6 @@ const VinCarDeposit = () => {
     const [background, setBackground] = useState('http://192.168.234.1/images/lux-sa/brahminy-white/1.png')
     
     const [postData, setPostData] = useState([])
-    const [allCar, setAllCar] = useState([])
     
     const name = ['president', 'lux-sa', 'lux-a', 'fadil', 'vfe-34'];
     const nameTitle = ['PRESIDENT', 'LUX SA2.0', 'LUX A2.0', 'FADIL', 'VF e34'];
@@ -63,82 +62,44 @@ const VinCarDeposit = () => {
     }, [type])
 
 
-    useEffect(() => {
-        const getAllCarDeposit = async () => {
-            try {
-                const res2 = await productDepositApi.getAllCarDeposit()
-                setAllCar(res2.data)
-            } catch(err) {
-                alert(err)
-            }
-        }
-        getAllCarDeposit()
-    }, [])
-
     const [active, setActive] = useState(1);
     const [active2, setActive2] = useState(carFisrt[1]);
     const [active3, setActive3] = useState(0);
 
-    let car = []
-    // if (allCar) {
-    //     car = allCar.filter((item, index) => {
-    //         return item.name === nameTitle[active]
-    //     })
-    // }
-
-    // const li = () => {
-    //     return (
-    //         <ul>
-    //             <li className="active" data="Đỏ" style={{backgroundColor: 'rgb(199, 0, 0)'}}>0</li>
-    //             <li className="" data="Xanh" style={{backgroundColor: 'rgb(18, 42, 65)'}}>1</li>
-    //             <li className="" data="Xám" style={{backgroundColor: 'rgb(95, 99, 99)'}}>2</li>
-    //             <li className="" data="Bạc" style={{backgroundColor: 'rgb(153, 153, 153)'}}>3</li>
-    //             <li className="" data="Đen" style={{backgroundColor: 'rgb(0, 0, 0)'}}>4</li>
-    //             <li className="" data="Trắng" style={{backgroundColor: 'rgb(255, 255, 255)'}}>5</li>
-    //         </ul>
-    //     )
-    // }
-
-    const Item = ({ containerDeposit, index, containerDepositActive }) => (
-        <TouchableHighlight
-            onPress={() => (setActive(index), setType(name[index]), setBackground(`http://192.168.234.1/images/lux-sa/brahminy-white/1.png`))}
-            style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginRight: 10,
-                padding: 5,
-                height: 160,
-            }}
-        >
-            <View style={styles.item}>
-                <Image 
-                    style={[{width: 138.48, height: 92.31}, index === active ? {display: 'none'} : {display: 'flex'}]}
-                    source={{uri: containerDeposit}}
-                />
-                <Image 
-                    style={[{width: 138.48, height: 92.31}, index === active ? {display: 'flex'} : {display: 'none'}]}
-                    source={{uri: containerDepositActive}}
-                />
-                <Text style={styles.h2}>{name[index]}</Text>
-            </View>
-        </TouchableHighlight>
-    );
-
     const renderItem = ({ item, index }) => (
-        <Item containerDeposit={item.containerDeposit} containerDepositActive={item.containerDepositActive} index= {index}/>
+        <View key={index}>
+            <TouchableHighlight
+                onPress={() => (setActive(index), setType(name[index]), setBackground(`http://192.168.234.1/images/lux-sa/brahminy-white/1.png`))}
+                style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginRight: 10,
+                    padding: 5,
+                    height: 160,
+                }}
+            >
+                <View style={styles.item}>
+                    <Image 
+                        style={[{width: 138.48, height: 92.31}, index === active ? {display: 'none'} : {display: 'flex'}]}
+                        source={{uri: item.containerDeposit}}
+                    />
+                    <Image 
+                        style={[{width: 138.48, height: 92.31}, index === active ? {display: 'flex'} : {display: 'none'}]}
+                        source={{uri: item.containerDepositActive}}
+                    />
+                    <Text style={styles.h2}>{name[index]}</Text>
+                </View>
+            </TouchableHighlight>
+        </View>
     );
-
-    const ItemColorCar = ({id, colorCode, color, index }) => (
-        <TouchableOpacity
-            onPress={() => (setActive2(parseInt(id)), setActive3(index))}
-        >
-          <View style={[{backgroundColor: colorCode}, styles.ItemColorCar, active2 === parseInt(id) ? {borderColor: COLORS.blue} : null]}>
-          </View>
-        </TouchableOpacity>
-      );
 
     const renderColorCar = ({ item, index }) => (
-        <ItemColorCar id={index} color={item.color} colorCode={item.colorCode} index={index}/>
+            <TouchableOpacity
+                onPress={() => (alert(item.color.toLowerCase().split(' ').join('-')), setActive2(index), setActive3(index), setBackground(`http://192.168.234.1/images/${type}/${item.color.toLowerCase().replace(" ", "-")}/1.png`))}
+            >
+            <View style={[{backgroundColor: item.color_code}, styles.ItemColorCar, active2 === index ? {borderColor: COLORS.blue} : null]}>
+            </View>
+            </TouchableOpacity>
     );
 
     return (
@@ -147,6 +108,7 @@ const VinCarDeposit = () => {
                 <FlatList
                     data={dataContainer}
                     renderItem={renderItem}
+                    keyExtractor={(item, index) => String(index)}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{paddingVertical: 10}}
@@ -158,19 +120,6 @@ const VinCarDeposit = () => {
                         style={{width: 366, height: 238}}
                         source={{uri: background}}
                     />
-                    <Swiper
-                        height={240}
-                        loop
-                    >
-                        {
-                            luxsa ? luxsa.map((item, index) => {
-                                <Image key={index}
-                                    style={{width: 366, height: 238}}
-                                    source={{uri: item}}
-                                />
-                            }) : null
-                        }
-                    </Swiper>
                 </View>
                 <View style={styles.vinCarDetailSelect}>
                     <View style={styles.groupNameTitle}>
@@ -184,15 +133,16 @@ const VinCarDeposit = () => {
                         <Text style={styles.selectColor}>Lựa chọn màu ngoại thất</Text>
                         <View style={styles.listColor}>
                             <FlatList
-                                data={car}
+                                data={postData}
                                 renderItem={renderColorCar}
+                                keyExtractor={(item, index) => String(index)}
                                 horizontal
                                 showsHorizontalScrollIndicator={false}
                                 contentContainerStyle={{paddingVertical: 10}}
                             />
                         </View>
                         {
-                            car[active3] ? <Text style={styles.colorName}>{car[active3].color}</Text> : null
+                            postData[active3] ? <Text style={styles.colorName}>{postData[active3].color}</Text> : null
                         }
                     </View>
                     <View style={styles.groupNameColor}>
@@ -208,7 +158,7 @@ const VinCarDeposit = () => {
                     </View>
                 </View>
             </View>
-            <OrderLast image_car={name[active] && car[active3] ? `http://localhost:3000/images/${name[active]}/${car[active3].color2}/2.png` : null} price={postData[active] ? postData[active].price : null} money_deposit={postData[active] ? postData[active].deposits : null} nameCar={nameTitle[active] ? nameTitle[active] : null} colorCar={car[active3] ? car[active3].color : null}/>
+            <OrderLast image_car={name[active] && postData[active3] ? `http://localhost:3000/images/${name[active]}/${postData[active3].color2}/2.png` : null} price={postData[active] ? postData[active].price : null} money_deposit={postData[active] ? postData[active].deposits : null} nameCar={nameTitle[active] ? nameTitle[active] : null} colorCar={postData[active3] ? postData[active3].color : null}/>
         </>
     )
 }

@@ -1,9 +1,7 @@
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import "intl";
 import "intl/locale-data/jsonp/en";
-import Button from '../component/Button'
-import Swiper from 'react-native-swiper';
 import block3Api from '../api/home/block3Api'
 import {COLORS} from '../constants/theme'
 import BlockVehicle from './BlockVehicle';
@@ -28,36 +26,13 @@ const Block3 = () => {
       <View style={styles.container}>
         <Text style={styles.block3Title}>Xe ô tô</Text>
         <Text style={styles.block3Description}>Hơn cả việc tạo nên một chiếc xe mới, VinFast ra đời đại diện cho tinh thần và niềm kiêu hãnh dân tộc.</Text>
-        <BlockVehicle dataApi={block3Data}/>
+        <BlockVehicle screen="Car" dataApi={block3Data}/>
       </View>
     </View>
   )
 }
 
 export default Block3
-
-const Block3Item = ({item}) => (
-  <View>
-    <Image 
-      style={{width: '100%', height: 235,}}
-      source={{uri: item.path}}
-    />
-    <Text style={styles.slogan}>{item.slogan}</Text>
-    <Text style={styles.name}>{item.name}</Text>
-    <View style={{alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'}}>
-      <View style={styles.type}>
-        <Text style={styles.title}>Dòng xe</Text>
-        <Text style={styles.noname}>{item.vehicles}</Text>
-      </View>
-      <View style={styles.price}>
-        <Text style={styles.title}>Giá niêm yết</Text>
-        <Text style={styles.noname}>{new Intl.NumberFormat('en').format(item.price)} vnđ</Text>
-      </View>
-    </View>
-    <Button style={styles.deposit} label='Đặt cọc ngay' />
-    <Text style={styles.viewAll}>Xem chi tiết</Text>
-  </View>
-)
 
 const styles = StyleSheet.create({
   block3: {

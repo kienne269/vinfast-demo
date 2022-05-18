@@ -93,7 +93,7 @@ const SalePower = () => {
                                 
                                 <View style={styles.buy}>
                                     <Text style={styles.seeDetail}>Xem chi tiết</Text>
-                                    <Text style={styles.buttonBuy}>Đặt cọc ngay</Text>
+                                    <Text style={styles.buttonBuy}>Mua ngay</Text>
                                 </View>
                             </View>
                         </View>

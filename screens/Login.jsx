@@ -17,32 +17,26 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('')
   const [isLogin, setIsLogin] = useState(false)
 
-  const handleSubmit = () => {
-    const obj = {
-      email: email,
-      password: password
-    }
-    dispatch(login({
-      email: email,
-      password: password,
-      loggedIn: true,
-    }))
+  const handleSubmit = async () => {
+    try {
+        const res = await accountApi.login(email, password)
+        setIsLogin(typeof(res.data) === 'object')
 
-    const getAccountApi = async () => {
-      try {
-          const res = await accountApi.login(email, password)
-          setIsLogin(typeof(res.data) === 'object')
-
-          if(typeof(res.data) === 'object') {
-            navigation.navigate('Auth')
-          } else {
-            alert("lỗi")
-          }
-      } catch(err) {
-          alert(err)
-      }
+        if(typeof(res.data) === 'object') {
+          navigation.navigate('Auth')
+          dispatch(login({
+            email: email,
+            password: password,
+            username: res.data.user_name,
+            role: res.data.role,
+            loggedIn: true,
+          }))
+        } else {
+          alert("lỗi")
+        }
+    } catch(err) {
+        alert(err)
     }
-    getAccountApi()
   }
   return (
     <KeyboardAvoidingView

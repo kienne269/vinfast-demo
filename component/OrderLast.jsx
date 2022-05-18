@@ -104,7 +104,7 @@ const OrderLast = (props) => {
               onPress={() => setCheckbox1(!checkbox1)}
             />
             <CheckBox 
-              title="Tôi đã đọc, hiểu rõ và xác nhận đồng ý với toàn bộ nội dung Điều khoản trong Thỏa Thuận Đặt Cọc trên cũng như Chính Sách Ưu Đãi áp dụng tại thời điểm đặt mua xe ô tô này trên VinFast Online."
+              title="Tôi đã đọc, hiểu rõ và xác nhận đồng ý với toàn bộ nội dung Điều khoản trong Thỏa Thuận Mua trên cũng như Chính Sách Ưu Đãi áp dụng tại thời điểm đặt mua xe ô tô này trên VinFast Online."
               checked={checkbox2}
               onPress={() => setCheckbox2(!checkbox2)}
             />
@@ -122,7 +122,7 @@ const OrderLast = (props) => {
           />
         </View>
         <View style={styles.vfPayment}>
-          <Text style={styles.content}>Thông tin chuyển khoản đặt cọc</Text>
+          <Text style={styles.content}>Thông tin chuyển khoản Mua</Text>
           <View style={styles.infoDeposit}>
             <Text style={styles.infoDepositLabel}>Ngân hàng</Text>
             <Text style={styles.content}>Ngân hàng Thương mại cổ phần Kỹ Thương Việt Nam (Techcombank)</Text>
@@ -149,7 +149,7 @@ const OrderLast = (props) => {
         <View style={styles.submit}>
           <Button 
             onPress={onSubmit}
-            title="Đặt cọc"
+            title="Mua"
           />
         </View>
         

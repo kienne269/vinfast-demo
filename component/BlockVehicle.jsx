@@ -1,18 +1,18 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import "intl";
 import "intl/locale-data/jsonp/en";
-import Button from '../component/Button'
+import ButtonLink from '../component/ButtonLink'
 import Swiper from 'react-native-swiper';
 import {COLORS} from '../constants/theme'
 
-const BlockVehicle = ({dataApi}) => {
+const BlockVehicle = ({dataApi, screen}) => {
 
   return (
     <View>
         {
             dataApi ? dataApi.map((item,index) => (
-              <BlockVehicleItem item={item} key={index}/>
+              <BlockVehicleItem screen={screen} item={item} key={index}/>
             )) : null
         }
     </View>
@@ -21,7 +21,7 @@ const BlockVehicle = ({dataApi}) => {
 
 export default BlockVehicle
 
-const BlockVehicleItem = ({item}) => (
+const BlockVehicleItem = ({item, screen}) => (
   <View>
     <Image 
       style={{width: '100%', height: 235,}}
@@ -39,7 +39,7 @@ const BlockVehicleItem = ({item}) => (
         <Text style={styles.noname}>{new Intl.NumberFormat('en').format(item.price)} vnđ</Text>
       </View>
     </View>
-    <Button style={styles.deposit} label='Đặt cọc ngay' />
+    <ButtonLink style={styles.deposit} label='Đặt cọc ngay' screen={screen} params={{ id: item.name }} />
     <Text style={styles.viewAll}>Xem chi tiết</Text>
   </View>
 )
@@ -122,6 +122,8 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: 14,
     borderRadius: 0,
+    backgroundColor: '#1464f4',
+    marginTop: 20,
   },
   viewAll: {
     backgroundColor: '#fff',

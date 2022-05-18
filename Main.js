@@ -16,6 +16,9 @@ import Account from './screens/Account';
 
 import SignIn from './screens/SignIn'
 import Login from './screens/Login'
+import PersonalInfo from './component/PersonalInfo';
+import TransactionHistory from './component/TransactionHistory';
+import Cart from './component/Cart';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -82,7 +85,8 @@ const Main = () => {
     return (
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Login"
+            // initialRouteName="Login"
+            initialRouteName="Auth"
           >
             <Stack.Screen
               name='Login'
@@ -108,6 +112,51 @@ const Main = () => {
               name='Auth'
               component={Auth}
               options={{headerShown: false}}
+            />
+            <Stack.Screen 
+              name='PersonalInfo'
+              component={PersonalInfo}
+              options={{
+                title: 'Thông tin cá nhân', //Set Header Title
+                headerStyle: {
+                  backgroundColor: '#307ecc', //Set Header color
+                },
+                headerTintColor: '#fff', //Set Header text color
+                headerTitleStyle: {
+                  fontWeight: 'bold', //Set Header text style
+                },
+                headerTitleAlign: "center",
+              }}
+            />
+            <Stack.Screen 
+              name='TransactionHistory'
+              component={TransactionHistory}
+              options={{
+                title: 'Lịch sử giao dịch', //Set Header Title
+                headerStyle: {
+                  backgroundColor: '#307ecc', //Set Header color
+                },
+                headerTintColor: '#fff', //Set Header text color
+                headerTitleStyle: {
+                  fontWeight: 'bold', //Set Header text style
+                },
+                headerTitleAlign: "center",
+              }}
+            />
+            <Stack.Screen 
+              name='Cart'
+              component={Cart}
+              options={{
+                title: 'Giỏ hàng', //Set Header Title
+                headerStyle: {
+                  backgroundColor: '#307ecc', //Set Header color
+                },
+                headerTintColor: '#fff', //Set Header text color
+                headerTitleStyle: {
+                  fontWeight: 'bold', //Set Header text style
+                },
+                headerTitleAlign: "center",
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>
