@@ -37,6 +37,16 @@ const VinCarDeposit = () => {
             containerDeposit: 'http://192.168.234.1//images/ldp-all-cars/VFe34.jpg',
             containerDepositActive: 'http://192.168.234.1//images/ldp-all-cars/VFe34-highlight.jpg',
         },
+        // {
+        //     id: 6,
+        //     containerDeposit: 'http://192.168.234.1//images/vf-8/neptune-grey/1.jpg',
+        //     containerDepositActive: 'http://192.168.234.1//images/vf-8/neptune-grey/1.jpg',
+        // },
+        // {
+        //     id: 7,
+        //     containerDeposit: 'http://192.168.234.1//images/vf-9/neptune-grey/1.jpg',
+        //     containerDepositActive: 'http://192.168.234.1//images/vf-9/neptune-grey/1.jpg',
+        // },
     ]
     const carFisrt = [17, 0, 6, 12, 25]
 

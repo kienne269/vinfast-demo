@@ -40,10 +40,13 @@
     "react-native-web": "0.17.1",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "react-native-vnpay-merchant": "file:react-native-vnpay-merchant"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "typescript": "~4.3.5",
+    "@types/react": "~17.0.21"
   },
   "private": true
 }
