@@ -10,7 +10,7 @@ import luxsa from '../assets/data/Image360View';
 
 const { width, height } = Dimensions.get('window')
 
-const VinCarDeposit = () => {
+const VinCarDeposit = ({navigation}) => {
     const dataContainer = [
         {
             id: 1,
@@ -168,7 +168,7 @@ const VinCarDeposit = () => {
                     </View>
                 </View>
             </View>
-            <OrderLast image_car={name[active] && postData[active3] ? `http://localhost:3000/images/${name[active]}/${postData[active3].color2}/2.png` : null} price={postData[active] ? postData[active].price : null} money_deposit={postData[active] ? postData[active].deposits : null} nameCar={nameTitle[active] ? nameTitle[active] : null} colorCar={postData[active3] ? postData[active3].color : null}/>
+            <OrderLast navigation={navigation} image_car={name[active] && postData[active3] ? `http://localhost:3000/images/${name[active]}/${postData[active3].color2}/2.png` : null} price={postData[active] ? postData[active].price : null} money_deposit={postData[active] ? postData[active].deposits : null} nameCar={nameTitle[active] ? nameTitle[active] : null} colorCar={postData[active3] ? postData[active3].color : null}/>
         </>
     )
 }

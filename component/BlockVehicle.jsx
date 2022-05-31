@@ -1,30 +1,43 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
-import "intl";
-import "intl/locale-data/jsonp/en";
-import ButtonLink from '../component/ButtonLink'
-import Swiper from 'react-native-swiper';
-import {COLORS} from '../constants/theme'
+import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
+import React, {useState, useEffect} from 'react'
+import Swiper from 'react-native-swiper'
+import block3Api from '../api/home/block3Api'
+import ButtonLink from './ButtonLink'
+import Button from './Button'
+import { COLORS } from '../constants'
+import luxsa from '../assets/data/Image360View';
+import CarDetail from './CarDetail'
 
-const BlockVehicle = ({dataApi, screen}) => {
-
+const BlockVehicle = ({dataApi, screen, navigation}) => {
+  const initialCurrentLocation = {
+    streetName: "Kuching",
+    gps: {
+      latitude: 1.5496614931250685,
+      longitude: 110.36381866919932    
+    }
+  }
+  const [currentLocation, useCurrentLocation] = useState(initialCurrentLocation)
   return (
-    <View>
-        {
-            dataApi ? dataApi.map((item,index) => (
-              <BlockVehicleItem screen={screen} item={item} key={index}/>
-            )) : null
-        }
+    <View style={styles.block1}>
+      <View style={styles.container}>
+        <Swiper style={styles.wrapper} showsButtons={false} loop={true}>
+            {
+              dataApi ? dataApi.map((item,index) => (
+                <View key={index} style={styles.slide}>
+                  <BlockVehicleItem navigation={navigation} screen={screen} item={item} key={index}/>
+                </View>
+              )) : null
+            }
+        </Swiper>
+      </View>
     </View>
   )
 }
 
-export default BlockVehicle
-
-const BlockVehicleItem = ({item, screen}) => (
+const BlockVehicleItem = ({item, screen, navigation}) => (
   <View>
     <Image 
-      style={{width: '100%', height: 235,}}
+      style={{width: '100%', height: 240,}}
       source={{uri: item.path}}
     />
     <Text style={styles.slogan}>{item.slogan}</Text>
@@ -40,18 +53,20 @@ const BlockVehicleItem = ({item, screen}) => (
       </View>
     </View>
     <ButtonLink style={styles.deposit} label='Đặt cọc ngay' screen={screen} params={{ id: item.name }} />
-    <Text style={styles.viewAll}>Xem chi tiết</Text>
+    <TouchableOpacity style={styles.deposit} label='Xem chi tiết' screen="CarDetail" params={{ id: 1 }} />
   </View>
 )
+
+export default BlockVehicle
 
 const styles = StyleSheet.create({
   blockVehicle: {
     
   },
   container: {
-    paddingHorizontal: 20,
-    marginHorizontal: 'auto',
-    width: '100%',
+    // paddingHorizontal: 20,
+    // marginHorizontal: 'auto',
+    // width: '100%',
   },
   blockVehicleTitle: {
     fontWeight: '300',
@@ -74,7 +89,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   wrapper: {
-    width: '100%',
+    // width: '100%',
     height: 716,
   },
   slogan: {
@@ -127,13 +142,16 @@ const styles = StyleSheet.create({
   },
   viewAll: {
     backgroundColor: '#fff',
-    color: '#1464f4',
+    borderColor: '#1464f4',
+    borderWidth: 1,
+    borderStyle: 'solid',
     width: '100%',
     textAlign:'center',
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: '400',
     lineHeight: 15,
     textTransform: 'uppercase',
     paddingVertical: 14,
+    borderRadius: 0,
   },
-});
+})

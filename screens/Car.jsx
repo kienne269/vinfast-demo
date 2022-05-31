@@ -3,11 +3,11 @@ import React from 'react'
 import VinCarBanner from '../component/VinCarBanner'
 import VinCarDeposit from '../component/VinCarDeposit'
 
-const Car = () => {
+const Car = ({navigation}) => {
   return (
     <ScrollView style={styles.car}>
       <VinCarBanner/>
-      <VinCarDeposit/>
+      <VinCarDeposit navigation={navigation}/>
     </ScrollView>
   )
 }

@@ -19,6 +19,8 @@ import Login from './screens/Login'
 import PersonalInfo from './component/PersonalInfo';
 import TransactionHistory from './component/TransactionHistory';
 import Cart from './component/Cart';
+import CarDetail from './component/CarDetail';
+import OrderInfor from './component/OrderInfor';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -157,6 +159,40 @@ const Main = () => {
                 },
                 headerTitleAlign: "center",
               }}
+            />
+            <Stack.Screen 
+              name='CarDetail'
+              component={CarDetail}
+              options={({route}) => (
+                {
+                  title: route.params.nameParam, //Set Header Title
+                  headerStyle: {
+                    backgroundColor: '#307ecc', //Set Header color
+                  },
+                  headerTintColor: '#fff', //Set Header text color
+                  headerTitleStyle: {
+                    fontWeight: 'bold', //Set Header text style
+                  },
+                  headerTitleAlign: "center",
+                }
+              )}
+            />
+            <Stack.Screen 
+              name='OrderInfor'
+              component={OrderInfor}
+              options={({route}) => (
+                {
+                  title: 'Thông tin đặt hàng', //Set Header Title
+                  headerStyle: {
+                    backgroundColor: '#307ecc', //Set Header color
+                  },
+                  headerTintColor: '#fff', //Set Header text color
+                  headerTitleStyle: {
+                    fontWeight: 'bold', //Set Header text style
+                  },
+                  headerTitleAlign: "center",
+                }
+              )}
             />
           </Stack.Navigator>
         </NavigationContainer>

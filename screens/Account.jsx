@@ -13,7 +13,7 @@ const K_OPTIONS = [
   {
     id: '2',
     icon: 'history',
-    title: 'Lịch sử giao dịch',
+    title: 'Lịch sử đơn hàng',
     optionNavigate: 'TransactionHistory'
   },
   {

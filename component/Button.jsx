@@ -20,7 +20,7 @@ const Button = ({ label, onPress, disabled, style}) => {
         disabled={disabled}
     >
         <Text
-            style={{fontSize: 18, fontWeight: '700', color: '#fff', textTransform: 'uppercase'}}
+            style={{fontSize: 18, fontWeight: '700', color: '#1464f4', textTransform: 'uppercase'}}
         >
             {label}
         </Text>

@@ -1,18 +1,264 @@
-import { StyleSheet, Text, View, Button} from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native'
 import { useState} from 'react'
+import Button from './Button'
 import {CheckBox, ButtonGroup} from 'react-native-elements'
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import SelectBox from 'react-native-multi-selectbox'
 import TextInput from '../component/TextInput'
 import {COLORS, FONTS} from '../constants/theme'
+import SelectInput from './SelectInput'
+import * as ImagePicker from 'expo-image-picker';
+import { FontAwesome5 } from '@expo/vector-icons';
+const Provinces = [
+  {
+    id: 0,
+    item: 'Hà Nội',
+    Showroom: [
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+      {
+        item: 'SR Smart City - Hà Nội',
+        address: 'Tầng 1,TTTM Vincom Mega Mall, KĐT Vinhomes Smart City'
+      },
+      {
+        item: 'SR Times City - Hà Nội',
+        address: 'Tòa văn phòng Symphony, Đường Chu Huy Mân, Phường Phúc Lợi'
+      },
+      {
+        item: 'SR Phạm Văn Đồng - Hà Nội',
+        address: '166 đường PHạm Văn Đồng, Phương Xuân Đỉnh'
+      },
+      {
+        item: 'SR Nguyễn Văn Linh - Hà Nội',
+        address: 'Số 1 phố Nguyễn Văn Linh'
+      },
+      {
+        item: 'SR Trần Duy Hưng - Hà Nội',
+        address: 'Tầng L1, TTTM Vincom Center Trần Duy Hưng'
+      },
+      {
+        item: 'SR Long Biên - Hà Nội',
+        address: 'Tầng 1, TTTM Vincom Plaza Long Biên, Khu đô thị Vinhomes Riverside'
+      },
+      {
+        item: 'SR Ocean Park - Hà Nội',
+        address: 'Taangf1, TTTM Vincom Mega Mal'
+      },
+      {
+        item: 'ĐL Hà Nội - Hà Nội',
+        address: 'Số 948, đường Quang Trung kéo dài'
+      },
+      {
+        item: 'ĐL Newway - Hà Nội',
+        address: 'Số 358 Đường Láng'
+      },
+      {
+        item: 'ĐL Thăng Long - Hà Nội',
+        address: 'Số 68 Trịnh Văn Bô, Phương Phương Canh, Quận Nam Từ Liêm, Thành Phố Hà Nội, Việt item'
+      },
+      {
+        item: 'ĐL Mỹ Đình - Hà Nội',
+        address: 'Số 8 Phạm Hung, Cầu Giấy, Hà Nội'
+      },
+      {
+        item: 'ĐL Trường Chinh - Hà Nội',
+        address: '162 Phố Trường Chinh, Quận Đống Đa, Hà Nội'
+      },
+      {
+        item: 'ĐL Quốc Oai - Hà Nội',
+        address: 'Km Quốc Oai - Hà Nội'
+      },
+    ]
+  },
+  {
+    id: 0,
+    item: 'Bắc Ninh',
+    Showroom: [
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+    ]
+  }
+]
 
-const OrderLast = (props) => {
+const K_OPTIONS = [
+  {
+    id: 0,
+    item: 'Hà Nội',
+    Showroom: [
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+      {
+        item: 'SR Smart City - Hà Nội',
+        address: 'Tầng 1,TTTM Vincom Mega Mall, KĐT Vinhomes Smart City'
+      },
+      {
+        item: 'SR Times City - Hà Nội',
+        address: 'Tòa văn phòng Symphony, Đường Chu Huy Mân, Phường Phúc Lợi'
+      },
+      {
+        item: 'SR Phạm Văn Đồng - Hà Nội',
+        address: '166 đường PHạm Văn Đồng, Phương Xuân Đỉnh'
+      },
+      {
+        item: 'SR Nguyễn Văn Linh - Hà Nội',
+        address: 'Số 1 phố Nguyễn Văn Linh'
+      },
+      {
+        item: 'SR Trần Duy Hưng - Hà Nội',
+        address: 'Tầng L1, TTTM Vincom Center Trần Duy Hưng'
+      },
+      {
+        item: 'SR Long Biên - Hà Nội',
+        address: 'Tầng 1, TTTM Vincom Plaza Long Biên, Khu đô thị Vinhomes Riverside'
+      },
+      {
+        item: 'SR Ocean Park - Hà Nội',
+        address: 'Taangf1, TTTM Vincom Mega Mal'
+      },
+      {
+        item: 'ĐL Hà Nội - Hà Nội',
+        address: 'Số 948, đường Quang Trung kéo dài'
+      },
+      {
+        item: 'ĐL Newway - Hà Nội',
+        address: 'Số 358 Đường Láng'
+      },
+      {
+        item: 'ĐL Thăng Long - Hà Nội',
+        address: 'Số 68 Trịnh Văn Bô, Phương Phương Canh, Quận Nam Từ Liêm, Thành Phố Hà Nội, Việt item'
+      },
+      {
+        item: 'ĐL Mỹ Đình - Hà Nội',
+        address: 'Số 8 Phạm Hung, Cầu Giấy, Hà Nội'
+      },
+      {
+        item: 'ĐL Trường Chinh - Hà Nội',
+        address: '162 Phố Trường Chinh, Quận Đống Đa, Hà Nội'
+      },
+      {
+        item: 'ĐL Quốc Oai - Hà Nội',
+        address: 'Km Quốc Oai - Hà Nội'
+      },
+    ]
+  },
+  {
+    id: 1,
+    item: 'Bắc Ninh',
+    Showroom: [
+      // {
+      //   item: 'SR Royal City - Hà Nội',
+      //   address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      // },
+      // {
+      //   item: 'SR Royal City - Hà Nội',
+      //   address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      // },
+    ]
+  },
+  {
+    id: 2,
+    item: 'Bắc Ninh',
+    Showroom: [
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+    ]
+  },
+  {
+    id: 3,
+    item: 'TP Hồ Chí Minh',
+    Showroom: [
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+    ]
+  },
+  {
+    id: 4,
+    item: 'Hải Phòng',
+    Showroom: [
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+      {
+        item: 'SR Royal City - Hà Nội',
+        address: 'Tòa nhà văn phòng Symphony, Đường Chu Huy Mân, Phương Phúc lợi'
+      },
+    ]
+  },
+]
+
+const OrderLast = ({navigation}) => {
   const [checkbox1, setCheckbox1] = useState(false)
   const [checkbox2, setCheckbox2] = useState(false)
   const [checkbox3, setCheckbox3] = useState(false)
 
-  const onSubmit = (data) => {
+  const [selectedProvince, setSelectedProvince] = useState({})
+  const [selectedShowRoom, setSelectedShowRoom] = useState({})
+
+  const [userName, setUserName] = useState('')
+  const [email, setEmail] = useState('')
+  const [cccd, setCccd] = useState('')
+  const [phone, setPhone] = useState('')
+  const [province, setProvince] = useState('')
+  const [Showroom, setShowroom] = useState('')
+  const [image, setImage] = useState(null);
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  const onSubmit = () => {
+    const data = {
+      userName: userName,
+      email: email,
+      cccd: cccd,
+      phone: phone,
+      province: province,
+      Showroom: Showroom,
+    }
     alert(JSON.stringify(data))
+  }
+
+  const onChangeProvince = () => {
+    return (val) => (setSelectedProvince(val), alert(Provinces))
+  }
+
+  const onChangeShowRoom = () => {
+    return (val) => alert(val.item)
   }
 
   return (
@@ -30,6 +276,9 @@ const OrderLast = (props) => {
               keyboardAppearance='dark'
               returnKeyType='next'
               returnKeyLabel='next'
+              onChangeText={(value) => {
+                setUserName(value)
+              }}
             />
           </View>
           <View style={styles.groupPersonal}>
@@ -42,6 +291,9 @@ const OrderLast = (props) => {
               keyboardAppearance='dark'
               returnKeyType='next'
               returnKeyLabel='next'
+              onChangeText={(value) => {
+                setCccd(value)
+              }}
             />
           </View>
           <View style={styles.groupPersonal}>
@@ -54,6 +306,9 @@ const OrderLast = (props) => {
               keyboardAppearance='dark'
               returnKeyType='next'
               returnKeyLabel='next'
+              onChangeText={(value) => {
+                setPhone(value)
+              }}
             />
           </View>
           <View style={styles.groupPersonal}>
@@ -66,6 +321,9 @@ const OrderLast = (props) => {
               keyboardAppearance='dark'
               returnKeyType='next'
               returnKeyLabel='next'
+              onChangeText={(value) => {
+                setEmail(value)
+              }}
             />
           </View>
         </View>
@@ -81,6 +339,9 @@ const OrderLast = (props) => {
               keyboardAppearance='dark'
               returnKeyType='next'
               returnKeyLabel='next'
+              onChangeText={(value) => {
+                setProvince(value)
+              }}
             />
           </View>
           <View style={styles.groupPersonal}>
@@ -93,6 +354,9 @@ const OrderLast = (props) => {
               keyboardAppearance='dark'
               returnKeyType='next'
               returnKeyLabel='next'
+              onChangeText={(value) => {
+                setShowroom(value)
+              }}
             />
           </View>
         </View>
@@ -145,14 +409,28 @@ const OrderLast = (props) => {
             Trong trường hợp Quý khách cần hỗ trợ khác, vui lòng liên hệ ngay với chúng tôi .{"\n"}Hotline: 
             <Text style={styles.supportHotline}> 1900 232 389</Text>
           </Text>
+          <View>
+            <TouchableOpacity
+                style={styles.selectImage}
+                activeOpacity={0.7}
+                onPress={pickImage}
+            >
+              <FontAwesome5 name="camera" size={24} color="black" />
+              <Text style={{marginLeft: 6, color: '#1464f4', fontSize: 16, fontWeight: '600', lineHeight: 22}}>Chọn ảnh</Text>
+            </TouchableOpacity>
+            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200, marginBottom: 50}} />}
+          </View>
         </View>
-        <View style={styles.submit}>
-          <Button 
-            onPress={onSubmit}
-            title="Mua"
-          />
-        </View>
-        
+        <TouchableOpacity
+            style={styles.submit}
+            activeOpacity={0.7}
+            onPress={() => navigation.navigate('OrderInfor', {
+              itemId: 1,
+              nameParam: 'name',
+            })}
+        >
+            <Text style={styles.styleText}>Thanh toán đặt cọc</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
@@ -161,9 +439,6 @@ const OrderLast = (props) => {
 export default OrderLast
 
 const styles = StyleSheet.create({
-    orderLast: {
-
-    },
     vfForm: {
       marginLeft: 12,
       marginRight: 12,
@@ -176,15 +451,8 @@ const styles = StyleSheet.create({
       textTransform: 'uppercase',
       textAlign: 'center',
     },
-    groupCustomer: {
-      
-    },
-    groupShowroom: {
-      
-    },
     groupPersonal: {
       marginBottom: 15,
-
     },
     label: {
       fontSize: 16,
@@ -203,21 +471,14 @@ const styles = StyleSheet.create({
       paddingRight: 12,
       borderRadius: 4
     },
-    groupCheckBox: {
-
-    },
     groupInput: {
       backgroundColor: COLORS.white,
-
     },
     checkbox: {
       margin: 8,
     },
-    groupRadio: {
-
-    },
     vfPayment: {
-      paddingLeft: 20,
+      paddingHorizontal: 20,
       marginTop: 20,
     },
     infoDepositLabel: {
@@ -230,19 +491,37 @@ const styles = StyleSheet.create({
       fontWeight: '600',
       marginBottom: 22
     },
-    infoDeposit: {
-      
-    },
-    support: {
-
-    },
     supportHotline: {
       fontWeight: '700',
     },
-    submit: {
+    selectImage: {
       marginTop: 50,
       marginBottom: 50,
       height: 40,
       borderRadius: 4,
+      backgroundColor: '#fff',
+      borderColor: '#1464f4',
+      color: '#1464f4',
+      borderWidth: 1,
+      borderRadius: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    submit: {
+      marginTop: 26,
+      height: 72,
+      paddingHorizontal: 13,
+      paddingVertical: 13,
+      maxWidth: 440,
+      backgroundColor: '#1464f4',
+      marginBottom: 50,
+    },
+    styleText: {
+      textTransform: 'uppercase',
+      textAlign: 'center',
+      color: '#fff',
+      fontSize: 14,
+      lineHeight: 40,
     }
 })

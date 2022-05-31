@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
         <HomeSlide />
         <Block1 />
         <Block2 />
-        <Block3 />
+        <Block3 navigation={navigation}/>
         <Block4 />
       </ScrollView>
     </View>
