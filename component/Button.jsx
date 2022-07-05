@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const Button = ({ label, onPress, disabled, style}) => {
+const Button = ({ label, onPress, disabled, style, colorText}) => {
   return (
     <TouchableOpacity
         style={[
@@ -20,7 +20,7 @@ const Button = ({ label, onPress, disabled, style}) => {
         disabled={disabled}
     >
         <Text
-            style={{fontSize: 18, fontWeight: '700', color: '#1464f4', textTransform: 'uppercase'}}
+            style={[{fontSize: 18, fontWeight: '700', color: colorText ? '#fff' : '#1464f4', textTransform: 'uppercase',}]}
         >
             {label}
         </Text>

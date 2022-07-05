@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/user/userSlice';
 import customerApi from '../api/depost/customerApi';
 
-const TransactionHistory = () => {
+const OrderManagement = ({navigation}) => {
   const user = useSelector(selectUser);
     
   const [customerData, setCustomerData] = useState([])
@@ -28,7 +28,12 @@ const TransactionHistory = () => {
       {/* <Text style={styles.title}>Lịch sử đơn hàng</Text> */}
         {
           customerData ? customerData.map((item, index) => (
-            <View key={index}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OrderInfor', {
+                itemId: item.id,
+              })}
+              style={styles.index} key={index}
+            >
               <View style={styles.product}>
                 <View style={styles.image}>
                   <Image 
@@ -55,20 +60,21 @@ const TransactionHistory = () => {
                     <Text>{item.created_date}</Text>
                   </View>
                 <View style={styles.status}>
-                    <Text>
-                      Thành công
+                    <Text style={{backgroundColor: item.status === 'fail' ? '#EBEBEB' : (item.status === 'success' ? '#28A745' : '#FFC107')}}>
+                      {item && item.status === 'success' ? 'Thành công' : null}
+                      {item && item.status === 'pending' ? 'Đang chờ xử lý' : null}
+                      {item && item.status === 'fail' ? 'Đã hủy' : null}
                     </Text>
-                    <Text style={styles.detail}>Chi tiết</Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           )) : null
         }
     </ScrollView>
   )
 }
 
-export default TransactionHistory
+export default OrderManagement
 
 const styles = StyleSheet.create({
   title: {
@@ -78,13 +84,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 'auto',
     width: '100%',
   },
+  index: {
+    borderColor: '#ccc',
+    borderTopWidth: 1,
+  },
   product: {
     flexDirection: 'row',
     paddingTop: 10,
     paddingBottom: 20,
     paddingHorizontal: 10,
-    borderColor: '#ccc',
-    borderTopWidth: 1,
     justifyContent: 'space-between',
     alignItems: 'center'
   },
@@ -109,6 +117,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 10,
+    fontSize: 16,
+        lineHeight: 24,
+        color: '#3c3c3c',
   },
   detail: {
 

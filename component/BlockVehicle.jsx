@@ -52,7 +52,7 @@ const BlockVehicleItem = ({item, screen, navigation}) => (
         <Text style={styles.noname}>{new Intl.NumberFormat('en').format(item.price)} vnđ</Text>
       </View>
     </View>
-    <ButtonLink style={styles.deposit} label='Đặt cọc ngay' screen={screen} params={{ id: item.name }} />
+    <ButtonLink style={styles.deposit} label='Mua ngay' screen={screen} params={{ id: item.name }} />
     <TouchableOpacity style={styles.deposit} label='Xem chi tiết' screen="CarDetail" params={{ id: 1 }} />
   </View>
 )

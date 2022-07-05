@@ -2,11 +2,9 @@ import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity, TouchableHig
 import React, {useState, useEffect} from 'react'
 import "intl";
 import "intl/locale-data/jsonp/en";
-import Swiper from 'react-native-swiper';
 import OrderLast from './OrderLast';
 import productDepositApi from '../api/depost/depositApi'
 import {COLORS, FONTS} from '../constants'
-import luxsa from '../assets/data/Image360View';
 
 const { width, height } = Dimensions.get('window')
 
@@ -75,6 +73,7 @@ const VinCarDeposit = ({navigation}) => {
     const [active, setActive] = useState(1);
     const [active2, setActive2] = useState(carFisrt[1]);
     const [active3, setActive3] = useState(0);
+    const [productId, setProductId] = useState(3);
 
     const renderItem = ({ item, index }) => (
         <View key={index}>
@@ -105,7 +104,7 @@ const VinCarDeposit = ({navigation}) => {
 
     const renderColorCar = ({ item, index }) => (
             <TouchableOpacity
-                onPress={() => (alert(item.color.toLowerCase().split(' ').join('-')), setActive2(index), setActive3(index), setBackground(`http://192.168.234.1/images/${type}/${item.color.toLowerCase().replace(" ", "-")}/1.png`))}
+                onPress={() => (setProductId(item.id), setActive2(index), setActive3(index), setBackground(`http://192.168.234.1/images/${type}/${item.color.toLowerCase().replace(" ", "-")}/1.png`))}
             >
             <View style={[{backgroundColor: item.color_code}, styles.ItemColorCar, active2 === index ? {borderColor: COLORS.blue} : null]}>
             </View>
@@ -135,7 +134,7 @@ const VinCarDeposit = ({navigation}) => {
                     <View style={styles.groupNameTitle}>
                         <Text style={styles.title}>{nameTitle[active]}</Text>
                         <View style={styles.amount}>
-                            <Text style={{fontSize: 18, marginTop: 5, marginBottom: 10,}}>Số tiền đặt cọc</Text>
+                            <Text style={{fontSize: 18, marginTop: 5, marginBottom: 10,}}>Số tiền đặt hàng</Text>
                             <Text style={{fontSize: 28, fontWeight: '700', lineHeight: 34, color: COLORS.blue}}>{new Intl.NumberFormat('en').format(postData[active] ? postData[active].deposits : 50000000)} vnđ</Text>
                         </View>
                     </View>
@@ -168,7 +167,7 @@ const VinCarDeposit = ({navigation}) => {
                     </View>
                 </View>
             </View>
-            <OrderLast navigation={navigation} image_car={name[active] && postData[active3] ? `http://localhost:3000/images/${name[active]}/${postData[active3].color2}/2.png` : null} price={postData[active] ? postData[active].price : null} money_deposit={postData[active] ? postData[active].deposits : null} nameCar={nameTitle[active] ? nameTitle[active] : null} colorCar={postData[active3] ? postData[active3].color : null}/>
+            <OrderLast product_id={productId} />
         </>
     )
 }

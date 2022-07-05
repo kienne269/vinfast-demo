@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Image, FlatList } from 'react-native'
 import React from 'react'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import OrderManagement from '../component/OrderManagement';
 
 const K_OPTIONS = [
   {
@@ -25,69 +26,14 @@ const K_OPTIONS = [
   {
     id: '4',
     icon: 'user-circle',
-    title: 'Quản lý bài viết',
-    optionNavigate: 'PersonalInfo'
+    title: 'Quản lý đơn hàng',
+    optionNavigate: 'OrderManagement'
   },
-  // {
-  //   id: '5',
-  //   icon: 'user-circle',
-  //   title: 'Bảo dưỡng - Sửa chữa',
-  //   optionNavigate: 'PersonalInfo'
-  // },
-  // {
-  //   id: '6',
-  //   icon: 'user-circle',
-  //   title: 'Xe của tôi',
-  //   optionNavigate: 'PersonalInfo'
-  // },
-
-  // {
-  //   id: '7',
-  //   icon: 'user-circle',
-  //   title: 'Nâng cấp xe',
-  //   optionNavigate: 'PersonalInfo'
-  // },
-  // {
-  //   id: '8',
-  //   icon: 'user-circle',
-  //   title: 'Thuê pin',
-  //   optionNavigate: 'PersonalInfo'
-  // },
-  // {
-  //   id: '9',
-  //   icon: 'user-circle',
-  //   title: 'Lịch sử Sạc Pin',
-  //   optionNavigate: 'PersonalInfo'
-  // },
-  // {
-  //   id: '10',
-  //   icon: 'user-circle',
-  //   title: 'Đăng ký lái thử',
-  //   optionNavigate: 'PersonalInfo'
-  // },
-  // {
-  //   id: '11',
-  //   icon: 'user-circle',
-  //   title: 'Thông tin xuất hóa đơn',
-  //   optionNavigate: 'PersonalInfo'
-  // },
-  // {
-  //   id: '12',
-  //   icon: 'user-circle',
-  //   title: 'Yêu cầu hỗ trợ',
-  //   optionNavigate: 'PersonalInfo'
-  // },
-  // {
-  //   id: '13',
-  //   icon: 'user-circle',
-  //   title: 'Liên hệ',
-  //   optionNavigate: 'PersonalInfo'
-  // },
   {
-    id: '14',
+    id: '5',
     icon: 'user-circle',
     title: 'Đăng xuất',
-    optionNavigate: 'PersonalInfo'
+    optionNavigate: 'Login'
   },
 ]
 

@@ -10,6 +10,7 @@ import { selectUser } from '../redux/user/userSlice';
 import accountApi from '../api/account';
 
 const Login = ({ navigation }) => {
+  
   const dispatch = useDispatch(); 
   const user = useSelector(selectUser)
   const [checked, setChecked] = useState(false)
@@ -25,6 +26,7 @@ const Login = ({ navigation }) => {
         if(typeof(res.data) === 'object') {
           navigation.navigate('Auth')
           dispatch(login({
+            user_id: res.data.user_id,
             email: email,
             password: password,
             username: res.data.user_name,
@@ -88,7 +90,7 @@ const Login = ({ navigation }) => {
           />
         </View>
         <View>
-          <Button disabled={email === '' && password === ""} backgroundColor="#ccc" label='Đăng nhập' onPress={handleSubmit} />
+          <Button colorText="fff" disabled={email === "" && password === ""} backgroundColor="#ccc" label='Đăng nhập' onPress={handleSubmit} />
         </View>
         <View style={{paddingHorizontal: 20, width: '100%', marginTop: 20, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',}}>
           <Pressable

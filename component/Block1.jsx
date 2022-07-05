@@ -24,7 +24,7 @@ const Block1 = () => {
   return (
     <View style={styles.block1}>
       <View style={styles.container}>
-        <Button style={styles.button} label='Đặt cọc ngay' />
+        <Button style={styles.button} label='Mua ngay' />
         <Swiper style={styles.wrapper} showsButtons loop={false}>
             {
               block1Data ? block1Data.map((item,index) => (

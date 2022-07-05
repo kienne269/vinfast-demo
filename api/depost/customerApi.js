@@ -10,7 +10,7 @@ const customerApi = {
     getByEmail: (email) => axiosClient.get(`deposit/customer/readCustomerByEmail.php?email=${email}`),
     update: (params) => axiosClient.post(`deposit/customer/updateCustomer.php`, params),
     
-    getOne: (id) => axios.get(`http://localhost/vinfast/vinfast-backend/api/deposit/customer/showCustomer.php?id=${id}`),
+    getOne: (id) => axios.get(`http://192.168.234.1/vinfast-backend/api/deposit/customer/showCustomer.php?id=${id}`),
 }
 
 export default customerApi

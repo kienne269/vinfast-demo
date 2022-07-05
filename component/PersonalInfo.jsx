@@ -6,7 +6,6 @@ import { selectUser } from '../redux/user/userSlice';
 
 const PersonalInfo = () => {
   const user = useSelector(selectUser)
-  // alert(user)
   return (
     <View style={{backgroundColor: '#fff', paddingTop: 20, height: '100%'}}>
       <View style={styles.container}>

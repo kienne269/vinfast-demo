@@ -49,7 +49,7 @@ const Block3 = ({navigation}) => {
                           <Text style={styles.noname}>{new Intl.NumberFormat('en').format(item.price)} vnđ</Text>
                         </View>
                       </View>
-                      <ButtonLink style={styles.deposit} label='Đặt cọc ngay' screen="Car" params={{ id: item.name }} />
+                      <ButtonLink style={styles.deposit} label='Mua ngay' screen="Car" params={{ id: item.name }} />
                       <TouchableOpacity
                         style={styles.button}
                         onPress={() => navigation.navigate('CarDetail', {

@@ -11,7 +11,7 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5'
 import Home from './screens/Home';
 import Car from './screens/Car';
 import Bike from './screens/Bike';
-import Blog from './screens/Blog';
+import Turnover from './screens/Turnover';
 import Account from './screens/Account';
 
 import SignIn from './screens/SignIn'
@@ -21,6 +21,7 @@ import TransactionHistory from './component/TransactionHistory';
 import Cart from './component/Cart';
 import CarDetail from './component/CarDetail';
 import OrderInfor from './component/OrderInfor';
+import OrderManagement from './component/OrderManagement';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -33,17 +34,17 @@ const Auth = () => {
           tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') {
+          if (route.name === 'Trang chủ') {
               iconName = focused
               ? 'house-user'
               : 'house-user';
-          } else if (route.name === 'Car') {
+          } else if (route.name === 'Xe ô tô') {
               iconName = focused ? 'car' : 'car';
-          } else if (route.name === 'Bike') {
+          } else if (route.name === 'Xe máy điện') {
               iconName = focused ? 'motorcycle' : 'motorcycle';
-          } else if (route.name === 'Blog') {
-              iconName = focused ? 'blog' : 'blog';
-          } else if (route.name === 'Account') {
+          } else if (route.name === 'Doanh thu') {
+              iconName = focused ? 'house-user' : 'house-user';
+          } else if (route.name === 'Tài khoản') {
               iconName = focused ? 'user-alt' : 'user-alt';
           }
 
@@ -55,27 +56,27 @@ const Auth = () => {
       })}
     >
     <Tab.Screen
-        name="Home"
+        name="Trang chủ"
         component={Home}
         options={{headerShown: false}}
     />
     <Tab.Screen
-        name="Car"
+        name="Xe ô tô"
         component={Car}
         options={{headerShown: false}}
     />
     <Tab.Screen
-        name="Bike"
+        name="Xe máy điện"
         component={Bike}
         options={{headerShown: false}}
     />
     <Tab.Screen
-        name="Blog"
-        component={Blog}
+        name="Doanh thu"
+        component={Turnover}
         options={{headerShown: false}}
     />
     <Tab.Screen
-        name="Account"
+        name="Tài khoản"
         component={Account}
         options={{headerShown: false}}
     />
@@ -87,8 +88,8 @@ const Main = () => {
     return (
         <NavigationContainer>
           <Stack.Navigator
-            // initialRouteName="Login"
-            initialRouteName="Auth"
+            initialRouteName="Login"
+            // initialRouteName="Auth"
           >
             <Stack.Screen
               name='Login'
@@ -193,6 +194,21 @@ const Main = () => {
                   headerTitleAlign: "center",
                 }
               )}
+            />
+            <Stack.Screen 
+              name='OrderManagement'
+              component={OrderManagement}
+              options={{
+                title: 'Đơn hàng mới', //Set Header Title
+                headerStyle: {
+                  backgroundColor: '#307ecc', //Set Header color
+                },
+                headerTintColor: '#fff', //Set Header text color
+                headerTitleStyle: {
+                  fontWeight: 'bold', //Set Header text style
+                },
+                headerTitleAlign: "center",
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>

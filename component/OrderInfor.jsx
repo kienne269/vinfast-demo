@@ -1,90 +1,134 @@
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import customerApi from '../api/depost/customerApi';
 
-const OrderInfor = ({navigation}) => {
-    const onSubmit = () => {
+const OrderInfor = ({ route, navigation }) => {
+    /* 2. Get the param */
+    const { itemId } = route.params;
 
+    const [orderDetail, SetOrderDetail] = useState([])
+    const [render, setRender] = useState(false)
+    useEffect(() => {
+        const getOrderDetail = async () => {
+            try {
+                const res = await customerApi.getOne(itemId)
+                SetOrderDetail(res.data)
+                setRender(false)
+                console.log(res.data)
+            } catch (err) {
+                alert(err)
+            }
+        }
+        getOrderDetail()
+    }, [render])
+
+    const onSubmit = async () => {
+        const data = {
+            id: itemId,
+            status: 'success',
+        }
+        try {
+            const res = await customerApi.update(data)
+            setRender(true)
+            console.log(res)
+        } catch (err) {
+            alert(err)
+        }
     }
-  return (
-    <ScrollView style={styles.container}>
-        <Text>Quý khách vui lòng kiểm tra lại thông tin trước khi thực hiện thanh toán.</Text>
-        <View style={styles.groupInfor}>
-            <Text style={styles.title}>Thông tin sản phẩm</Text>
-            <View style={styles.groupItem}>
-                <Text>Mẫu xe</Text>
-                <Text>VENTO-S</Text>
-            </View>
-            <View style={styles.groupItem}>
-                <Text>Màu xe</Text>
-                <Text>Trắng Ngọc Trai-Đen</Text>
-            </View>
-            <View style={styles.groupItem}>
-                <Text>Gói dịch vụ pin</Text>
-                <Text>Mua pin</Text>
-            </View>
+
+    const onCancel = async () => {
+        const data = {
+            id: itemId,
+            status: 'fail',
+        }
+        try {
+            const res = await customerApi.update(data)
+            setRender(true)
+            console.log(res)
+        } catch (err) {
+            alert(err)
+        }
+    }
+    return (
+        <View style={{ backgroundColor: '#fff', paddingTop: 20 }}>
+            <ScrollView style={styles.container}>
+                <View style={styles.groupInforImage}>
+                    <Text style={{ fontSize: 20, lineHeight: 26, fontWeight: '600', marginBottom: 13, textTransform: 'uppercase' }}>{orderDetail.name} - {orderDetail.color}</Text>
+                    <Image
+                        style={{ width: '100%', height: null, aspectRatio: 615 / 400 }}
+                        source={{ uri: orderDetail.path }}
+                    />
+                </View>
+                <View style={styles.groupInfor}>
+                    <Text style={styles.title}>Thông tin chung</Text>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>Mã đơn hàng</Text>
+                        <Text style={styles.td}>{orderDetail.id}</Text>
+                    </View>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>Ngày đặt hàng</Text>
+                        <Text style={styles.td}>{orderDetail.created_date}</Text>
+                    </View>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>Trạng thái</Text>
+                        <Text style={[styles.td, {
+                            paddingVertical: 4, paddingHorizontal: 16, borderRadius: 20, fontSize: 13, lineHeight: 16, fontWeight: '700',
+                            backgroundColor: orderDetail.status === 'fail' ? '#EBEBEB' : (orderDetail.status === 'success' ? '#28A745' : '#FFC107')
+                        }]}>
+                            {orderDetail.status === 'success' ? 'Thành công' : null}
+                            {orderDetail.status === 'pending' ? 'Đang chờ xử lý' : null}
+                            {orderDetail.status === 'fail' ? 'Đã hủy' : null}
+                        </Text>
+                    </View>
+                </View>
+                <View style={styles.groupInfor}>
+                    <Text style={styles.title}>Thông tin chủ xe</Text>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>Họ và tên</Text>
+                        <Text style={styles.td}>{orderDetail.user_name}</Text>
+                    </View>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>CMND/CCCD</Text>
+                        <Text style={styles.td}>{orderDetail.cccd}</Text>
+                    </View>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>Số điện thoại</Text>
+                        <Text style={styles.td}>{orderDetail.phone}</Text>
+                    </View>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>Email</Text>
+                        <Text style={styles.td}>{orderDetail.email}</Text>
+                    </View>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>Tỉnh thành</Text>
+                        <Text style={styles.td}>{orderDetail.province}</Text>
+                    </View>
+                    <View style={styles.groupItem}>
+                        <Text style={styles.th}>Showroom nhận xe</Text>
+                        <Text style={styles.td}>SR Trần Duy Hưng - Hà Nội</Text>
+                    </View>
+                </View>
+                {
+                    orderDetail.status === 'pending' ? <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <TouchableOpacity
+                            style={styles.cancel}
+                            activeOpacity={0.7}
+                            onPress={onCancel}
+                        >
+                            <Text style={{ color: '#1464f4', fontSize: 16, fontWeight: '600', lineHeight: 22 }}>Hủy đơn hàng</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.submit}
+                            activeOpacity={0.7}
+                            onPress={onSubmit}
+                        >
+                            <Text style={{ textAlign: 'center', color: '#fff', fontSize: 16, fontWeight: '600', lineHeight: 22 }}>Duyệt đơn hàng</Text>
+                        </TouchableOpacity>
+                    </View> : null
+                }
+            </ScrollView>
         </View>
-        <View style={styles.groupInfor}>
-            <Text style={styles.title}>Thông tin cá nhân</Text>
-            <View style={styles.groupItem}>
-                <Text>Họ và tên</Text>
-                <Text>123</Text>
-            </View>
-            <View style={styles.groupItem}>
-                <Text>CMND/CCCD</Text>
-                <Text>1234567789</Text>
-            </View>
-            <View style={styles.groupItem}>
-                <Text>Số điện thoại</Text>
-                <Text>0847758163</Text>
-            </View>
-            <View style={styles.groupItem}>
-                <Text>Email</Text>
-                <Text>2@gmail.com</Text>
-            </View>
-        </View>
-        <View style={styles.groupInfor}>
-            <Text style={styles.title}>Thông tin cá nhân</Text>
-            <View style={styles.groupItem}>
-                <Text>Tỉnh thành</Text>
-                <Text>Hà Nội</Text>
-            </View>
-            <View style={styles.groupItem}>
-                <Text>Showroom/ Đại lý</Text>
-                <Text>SR Trần Duy Hưng - Hà Nội</Text>
-            </View>
-            <View style={styles.groupItem}>
-                <Text>Nhân viên tư vấn</Text>
-                <Text></Text>
-            </View>
-        </View>
-        <View style={styles.groupInfor}>
-            <Text style={styles.title}>Thông tin thanh toán</Text>
-            <View style={styles.groupItem}>
-                <Text>Hình thức</Text>
-                <Text>Thanh toán qua thẻ ATM nội địa/Internet Banking (Miễn phí thanh toán)</Text>
-            </View>
-            <Text style={styles.title}>Thông tin thanh toán</Text>
-            <View style={styles.groupItem}>
-                <Text>Số tiền đặt cọc</Text>
-                <Text>2.000.000 VNĐ</Text>
-            </View>
-        </View>
-        <TouchableOpacity
-                style={styles.selectImage}
-                activeOpacity={0.7}
-                onPress={onSubmit}
-        >
-            <Text style={{color: '#1464f4', fontSize: 16, fontWeight: '600', lineHeight: 22}}>Thay đổi thông tin</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-            style={styles.submit}
-            activeOpacity={0.7}
-            onPress={onSubmit}
-        >
-            <Text style={{textAlign: 'center', color: '#fff', fontSize: 16, fontWeight: '600', lineHeight: 22}}>Thanh toán</Text>
-        </TouchableOpacity>
-    </ScrollView>
-  )
+    )
 }
 
 export default OrderInfor
@@ -95,20 +139,53 @@ const styles = StyleSheet.create({
         marginHorizontal: 'auto',
         width: '100%',
     },
-    selectImage: {
-        marginTop: 50,
-        height: 40,
-        borderRadius: 4,
-        backgroundColor: '#fff',
-        borderColor: '#1464f4',
-        color: '#1464f4',
+    groupInforImage: {
         borderWidth: 1,
+        borderColor: '#dedede',
+        paddingHorizontal: 20,
+        paddingVertical: 20,
+        borderRadius: 3,
+    },
+    groupInfor: {
+        marginTop: 20
+    },
+    title: {
+        fontWeight: '600',
+        fontSize: 16,
+        textTransform: 'uppercase',
+        lineHeight: 22,
+        color: '#1a1a1a',
+        marginBottom: 24
+    },
+    th: {
+        minWidth: 120,
+        fontSize: 16,
+        lineHeight: 24,
+        paddingRight: 8,
+        color: '#979797',
+        fontWeight: '600'
+    },
+    td: {
+        fontSize: 16,
+        lineHeight: 24,
+        color: '#3c3c3c',
+        maxWidth: 217,
+    },
+    cancel: {
+        marginTop: 20,
+        height: 40,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-      },
-      submit: {
+        backgroundColor: '#fff',
+        marginBottom: 50,
+        marginRight: 10,
+        borderWidth: 1,
+        borderColor: '#1464f4',
+        width: 150,
+    },
+    submit: {
         marginTop: 20,
         height: 40,
         borderRadius: 5,
@@ -118,5 +195,11 @@ const styles = StyleSheet.create({
         maxWidth: 440,
         backgroundColor: '#1464f4',
         marginBottom: 50,
-      },
+        width: 150,
+    },
+    groupItem: {
+        flexDirection: 'row',
+        justifyContent: "flex-start",
+        marginBottom: 10
+    },
 })
