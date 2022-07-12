@@ -21,6 +21,7 @@ import TransactionHistory from './component/TransactionHistory';
 import Cart from './component/Cart';
 import CarDetail from './component/CarDetail';
 import OrderInfor from './component/OrderInfor';
+import OrderInforUser from './component/OrderInforUser';
 import OrderManagement from './component/OrderManagement';
 
 const Tab = createBottomTabNavigator();
@@ -181,6 +182,23 @@ const Main = () => {
             <Stack.Screen 
               name='OrderInfor'
               component={OrderInfor}
+              options={({route}) => (
+                {
+                  title: 'Thông tin đặt hàng', //Set Header Title
+                  headerStyle: {
+                    backgroundColor: '#307ecc', //Set Header color
+                  },
+                  headerTintColor: '#fff', //Set Header text color
+                  headerTitleStyle: {
+                    fontWeight: 'bold', //Set Header text style
+                  },
+                  headerTitleAlign: "center",
+                }
+              )}
+            />
+            <Stack.Screen 
+              name='OrderInforUser'
+              component={OrderInforUser}
               options={({route}) => (
                 {
                   title: 'Thông tin đặt hàng', //Set Header Title

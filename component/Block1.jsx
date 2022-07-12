@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Swiper from 'react-native-swiper'
 import block1Api from '../api/home/block1Api'
 import Button from '../component/Button'
@@ -9,30 +9,29 @@ import luxsa from '../assets/data/Image360View';
 const Block1 = () => {
 
   const [block1Data, setBlock1Data] = useState([])
-    useEffect(() => {
-        
-        const getBlock1 = async () => {
-            try {
-                const res = await block1Api.getAll()
-                setBlock1Data(res.data)
-            } catch(err) {
-                alert(err)
-            }
-        }
-        getBlock1()
-    }, [])
+  useEffect(() => {
+
+    const getBlock1 = async () => {
+      try {
+        const res = await block1Api.getAll()
+        setBlock1Data(res.data)
+      } catch (err) {
+        alert(err)
+      }
+    }
+    getBlock1()
+  }, [])
   return (
     <View style={styles.block1}>
       <View style={styles.container}>
-        <Button style={styles.button} label='Mua ngay' />
         <Swiper style={styles.wrapper} showsButtons loop={false}>
-            {
-              block1Data ? block1Data.map((item,index) => (
-                <View key={index} style={styles.slide}>
-                  <Block1Item item={item}/>
-                </View>
-              )) : null
-            }
+          {
+            block1Data ? block1Data.map((item, index) => (
+              <View key={index} style={styles.slide}>
+                <Block1Item item={item} />
+              </View>
+            )) : null
+          }
         </Swiper>
       </View>
     </View>
@@ -45,9 +44,9 @@ const Block1Item = props => (
       <Text style={styles.block1ItemTitle}>{props.item.title}</Text>
       <Text style={styles.block1ItemDescription}>{props.item.description}</Text>
     </View>
-    <Image 
-      style={{width: '100%', height: null, aspectRatio: 1820/754}}
-      source={{uri: props.item.path}}
+    <Image
+      style={{ width: '100%', height: null, aspectRatio: 1820 / 754 }}
+      source={{ uri: props.item.path }}
     />
   </View>
 )

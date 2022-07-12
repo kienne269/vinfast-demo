@@ -15,9 +15,6 @@ import Provinces from '../assets/data/provinces'
 const OrderLast = (props) => {
 
   const user = useSelector(selectUser)
-  const [checkbox1, setCheckbox1] = useState(false)
-  const [checkbox2, setCheckbox2] = useState(false)
-  const [checkbox3, setCheckbox3] = useState(false)
 
   const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
@@ -25,6 +22,7 @@ const OrderLast = (props) => {
   const [phone, setPhone] = useState('')
   const [province, setProvince] = useState('')
   const [value, setValue] = useState(0);
+  const [created_by, setCreated_by] = useState('')
   const [showroom, setShowroom] = useState()
 
   const onSubmit = async () => {
@@ -36,6 +34,7 @@ const OrderLast = (props) => {
       phone: phone,
       cccd: cccd,
       province: province,
+      created_by: created_by,
       showroom: Provinces[value].Showroom[showroom].label,
     }
     console.log(data)
@@ -114,6 +113,21 @@ const OrderLast = (props) => {
               value={user.email}
               onChangeText={(value) => {
                 setEmail(value)
+              }}
+            />
+          </View>
+          <View style={styles.groupPersonal}>
+            <Text style={styles.label}>
+              Nhân viên tư vấn
+              <Text style={{ color: COLORS.blue }}> * </Text>
+            </Text>
+            <TextInput
+              autoCapitalize='none'
+              keyboardAppearance='dark'
+              returnKeyType='next'
+              returnKeyLabel='next'
+              onChangeText={(value) => {
+                setCreated_by(value)
               }}
             />
           </View>

@@ -1,10 +1,10 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import { useSelector } from 'react-redux';
 import { selectUser } from '../redux/user/userSlice';
 import customerApi from '../api/depost/customerApi';
 
-const TransactionHistory = () => {
+const TransactionHistory = ({navigation}) => {
   const user = useSelector(selectUser);
     
   const [customerData, setCustomerData] = useState([])
@@ -28,7 +28,12 @@ const TransactionHistory = () => {
       {/* <Text style={styles.title}>Lịch sử đơn hàng</Text> */}
         {
           customerData ? customerData.map((item, index) => (
-            <View key={index}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('OrderInforUser', {
+                itemId: item.id,
+              })}
+              style={styles.index} key={index}
+            >
               <View style={styles.product}>
                 <View style={styles.image}>
                   <Image 
@@ -55,13 +60,15 @@ const TransactionHistory = () => {
                     <Text>{item.created_date}</Text>
                   </View>
                 <View style={styles.status}>
-                    <Text>
-                      Thành công
+                    <Text style={{backgroundColor: item.status === 'fail' ? '#EBEBEB' : (item.status === 'success' ? '#28A745' : '#FFC107')}}>
+                      {item && item.status === 'success' ? 'Thành công' : null}
+                      {item && item.status === 'pending' ? 'Đang chờ xử lý' : null}
+                      {item && item.status === 'fail' ? 'Đã hủy' : null}
                     </Text>
                     <Text style={styles.detail}>Chi tiết</Text>
                 </View>
               </View>
-            </View>
+            </TouchableOpacity>
           )) : null
         }
     </ScrollView>

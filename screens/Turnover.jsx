@@ -30,7 +30,7 @@ const Turnover = () => {
     const getCustomerApi = async () => {
         try {
             const res = isApiSubscribed && await dashboardApi.getCustomerAll(from, to, user.username)
-            setStatistical(res.data)
+            typeof(res.data) == 'object' && setStatistical(res.data)
         } catch(err) {
             console.log(err)
         }
@@ -139,92 +139,92 @@ const Turnover = () => {
   ];
 
   //data số xe máy điện bán được
-  const dataNumberBike = [
-    {
-      name: "THEON S",
-      population: chartPie('THEON S').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "THEON",
-      population: chartPie('THEON').length,
-      color: "#F00",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 13
-    },
-    {
-      name: "VENTO S",
-      population: chartPie('VENTO S').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "VENTO",
-      population: chartPie('VENTO').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "FELIZ S",
-      population: chartPie('FELIZ S').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "FELIZ",
-      population: chartPie('FELIZ').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "KLARA S 2022",
-      population: chartPie('KLARA S 2022').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "KLARA S",
-      population: chartPie('KLARA S').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "KLARA A2",
-      population: chartPie('KLARA A2').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "TEMPEST",
-      population: chartPie('TEMPEST').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "IMPES",
-      population: chartPie('IMPES').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-    {
-      name: "LUDO",
-      population: chartPie('LUDO').length,
-      color: "rgba(131, 167, 234, 1)",
-      legendFontColor: "#7F7F7F",
-      legendFontSize: 15
-    },
-  ];
+  // const dataNumberBike = [
+  //   {
+  //     name: "THEON S",
+  //     population: chartPie('THEON S').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "THEON",
+  //     population: chartPie('THEON').length,
+  //     color: "#F00",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 13
+  //   },
+  //   {
+  //     name: "VENTO S",
+  //     population: chartPie('VENTO S').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "VENTO",
+  //     population: chartPie('VENTO').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "FELIZ S",
+  //     population: chartPie('FELIZ S').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "FELIZ",
+  //     population: chartPie('FELIZ').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "KLARA S 2022",
+  //     population: chartPie('KLARA S 2022').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "KLARA S",
+  //     population: chartPie('KLARA S').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "KLARA A2",
+  //     population: chartPie('KLARA A2').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "TEMPEST",
+  //     population: chartPie('TEMPEST').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "IMPES",
+  //     population: chartPie('IMPES').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  //   {
+  //     name: "LUDO",
+  //     population: chartPie('LUDO').length,
+  //     color: "rgba(131, 167, 234, 1)",
+  //     legendFontColor: "#7F7F7F",
+  //     legendFontSize: 15
+  //   },
+  // ];
 
   return (
     <ScrollView style={styles.container}>
@@ -302,15 +302,15 @@ const Turnover = () => {
         <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 40}}>
           <View style={{borderColor: '#707070', borderWidth: 1, padding: 12, borderRadius: 8}}>
             <Text style={{textAlign: 'center', textTransform: 'uppercase'}}>Doanh {"\n"} thu</Text>
-            <Text style={{textAlign: 'center', color: '#2c72c4'}}>2400000000 {"\n"} VNĐ</Text>
+            <Text style={{textAlign: 'center', color: '#2c72c4'}}>{new Intl.NumberFormat('en').format(statistical.filter(item => item.status === 'success').reduce((previousValue, currentValue) => Number(previousValue) + Number(currentValue.price), 0))} {"\n"} VNĐ</Text>
           </View>
           <View style={{borderColor: '#707070', borderWidth: 1, padding: 12, borderRadius: 8}}>
             <Text style={{textAlign: 'center', textTransform: 'uppercase'}}>Số đơn {"\n"} hàng</Text>
-            <Text style={{textAlign: 'center', color: '#2c72c4'}}>24</Text>
+            <Text style={{textAlign: 'center', color: '#2c72c4'}}>{statistical.length}</Text>
           </View>
           <View style={{borderColor: '#707070', borderWidth: 1, padding: 12, borderRadius: 8}}>
             <Text style={{textAlign: 'center', textTransform: 'uppercase'}}>Số xe {"\n"} bán được</Text>
-            <Text style={{textAlign: 'center', color: '#2c72c4'}}>24</Text>
+            <Text style={{textAlign: 'center', color: '#2c72c4'}}>{statistical.filter(item => item.status === 'success').length}</Text>
           </View>
         </View>
         {/* data số xe ô tô bán được */}
@@ -326,7 +326,7 @@ const Turnover = () => {
           absolute
         />
         {/* data số xe máy điện bán được */}
-        <PieChart
+        {/* <PieChart
           data={dataNumberCar}
           width={screenWidth}
           height={220}
@@ -336,7 +336,7 @@ const Turnover = () => {
           paddingLeft={"15"}
           center={[10, 5]}
           absolute
-        />
+        /> */}
     </ScrollView>
   )
 }

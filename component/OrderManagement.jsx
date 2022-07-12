@@ -14,7 +14,7 @@ const OrderManagement = ({navigation}) => {
   useEffect(() => {
     const getCustomerByEmail = async () => {
       try {
-          const res = await customerApi.getByEmail(user.email)
+          const res = await customerApi.getBySell(user.username)
           setCustomerData(res.data)
           setRender(false)
       } catch(err) {
@@ -22,7 +22,7 @@ const OrderManagement = ({navigation}) => {
       }
     }
     getCustomerByEmail()
-  }, [user.email,currentId, render])
+  }, [user.username,currentId, render])
   return (
     <ScrollView style={{backgroundColor: '#fff'}}>
       {/* <Text style={styles.title}>Lịch sử đơn hàng</Text> */}
