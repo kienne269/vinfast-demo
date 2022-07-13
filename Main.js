@@ -23,11 +23,15 @@ import CarDetail from './component/CarDetail';
 import OrderInfor from './component/OrderInfor';
 import OrderInforUser from './component/OrderInforUser';
 import OrderManagement from './component/OrderManagement';
+import userSlice from './redux/user/userSlice';
+import { useSelector } from 'react-redux';
+import { selectUser } from './redux/user/userSlice';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const Auth = () => {
+  const user = useSelector(selectUser);
   return (
     <Tab.Navigator
       initialRouteName="Auth"
@@ -43,7 +47,7 @@ const Auth = () => {
               iconName = focused ? 'car' : 'car';
           } else if (route.name === 'Xe máy điện') {
               iconName = focused ? 'motorcycle' : 'motorcycle';
-          } else if (route.name === 'Doanh thu') {
+          } else if (route.name === 'Doanh thu' && user.role != 'user') {
               iconName = focused ? 'house-user' : 'house-user';
           } else if (route.name === 'Tài khoản') {
               iconName = focused ? 'user-alt' : 'user-alt';
@@ -71,11 +75,13 @@ const Auth = () => {
         component={Bike}
         options={{headerShown: false}}
     />
-    <Tab.Screen
-        name="Doanh thu"
-        component={Turnover}
-        options={{headerShown: false}}
-    />
+    {
+      user.role != 'user' && <Tab.Screen
+      name="Doanh thu"
+      component={Turnover}
+      options={{headerShown: false}}
+      />
+    }
     <Tab.Screen
         name="Tài khoản"
         component={Account}

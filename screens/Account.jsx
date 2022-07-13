@@ -3,8 +3,10 @@ import React from 'react'
 import { FontAwesome } from '@expo/vector-icons'; 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import OrderManagement from '../component/OrderManagement';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../redux/user/userSlice';
 
-const K_OPTIONS = [
+const K_OPTIONS_SELL = [
   {
     id: '1',
     icon: 'user-circle-o',
@@ -37,6 +39,33 @@ const K_OPTIONS = [
   },
 ]
 
+const K_OPTIONS_USER = [
+  {
+    id: '1',
+    icon: 'user-circle-o',
+    title: 'Thông tin cá nhân',
+    optionNavigate: 'PersonalInfo'
+  },
+  {
+    id: '2',
+    icon: 'history',
+    title: 'Lịch sử đơn hàng',
+    optionNavigate: 'TransactionHistory'
+  },
+  {
+    id: '3',
+    icon: 'cart-arrow-down',
+    title: 'Giỏ hàng',
+    optionNavigate: 'Cart'
+  },
+  {
+    id: '5',
+    icon: 'user-circle',
+    title: 'Đăng xuất',
+    optionNavigate: 'Login'
+  },
+]
+
 const Item = ({icon, title, navigation, optionNavigate }) => (
   <TouchableOpacity onPress={() => navigation.navigate(optionNavigate)}>
     <View style={styles.item}>
@@ -49,7 +78,7 @@ const Item = ({icon, title, navigation, optionNavigate }) => (
 );
 
 const Account = ({ navigation }) => {
-
+  const user = useSelector(selectUser);
   const renderItem = ({ item }) => (
     <Item icon={item.icon} optionNavigate={item.optionNavigate} navigation={navigation} title={item.title} />
   );
@@ -63,7 +92,7 @@ const Account = ({ navigation }) => {
         />
       </View>
       <FlatList
-        data={K_OPTIONS}
+        data={user.role == 'user' ? K_OPTIONS_USER : K_OPTIONS_SELL}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
